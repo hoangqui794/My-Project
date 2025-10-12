@@ -1,0 +1,6 @@
+@MiniconectSocial_HostAddress = http://localhost:5219
+
+GET {{MiniconectSocial_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

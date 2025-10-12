@@ -1,0 +1,66 @@
+[
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Auth.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/v1/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MiniconectSocial.DTos.ForgotPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Auth.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/v1/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MiniconectSocial.DTos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Auth.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/v1/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MiniconectSocial.DTos.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Auth.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/v1/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MiniconectSocial.DTos.ResetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

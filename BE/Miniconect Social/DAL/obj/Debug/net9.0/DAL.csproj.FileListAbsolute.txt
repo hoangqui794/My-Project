@@ -1,0 +1,14 @@
+D:\DOC\My Project\BE\Miniconect Social\DAL\bin\Debug\net9.0\DAL.deps.json
+D:\DOC\My Project\BE\Miniconect Social\DAL\bin\Debug\net9.0\DAL.runtimeconfig.json
+D:\DOC\My Project\BE\Miniconect Social\DAL\bin\Debug\net9.0\DAL.dll
+D:\DOC\My Project\BE\Miniconect Social\DAL\bin\Debug\net9.0\DAL.pdb
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.csproj.AssemblyReference.cache
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.AssemblyInfoInputs.cache
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.AssemblyInfo.cs
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.csproj.CoreCompileInputs.cache
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.dll
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\refint\DAL.dll
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.pdb
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.genruntimeconfig.cache
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\ref\DAL.dll
