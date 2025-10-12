@@ -1,6 +1,7 @@
 ﻿using BLL.IService;
 using DAL.Data;
 using DAL.IRepository;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -18,10 +19,12 @@ namespace BLL.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
-        public UserService(IUserRepository userRepository , IConfiguration configuration)
+        private readonly IMemoryCache _memoryCache;
+        public UserService(IUserRepository userRepository , IConfiguration configuration, IMemoryCache cache)
         {
             _userRepository = userRepository;
             _configuration = configuration;
+            _memoryCache = cache;
         }
    
 
@@ -39,13 +42,21 @@ namespace BLL.Services
             return user;    
         }
 
+        public Task BlacklistTokenAsync(string jti)
+        {
+            var tokenLifetime = TimeSpan.FromHours(1);
+            _memoryCache.Set(jti, "blacklisted", tokenLifetime);
+            return Task.CompletedTask;
+        }
+
         public string GenerateJwtToken(User user)
         {
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("UserName", user.Username)
+                new Claim("UserName", user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             var secretKey = _configuration["Jwt:SecretKey"];
@@ -98,6 +109,12 @@ namespace BLL.Services
 
 
             return true;
+        }
+
+        public Task<bool> IsTokenBlacklistedAsync(string jti)
+        {
+            var isBlacklisted = _memoryCache.TryGetValue(jti, out _);
+            return Task.FromResult(isBlacklisted);
         }
 
         public async Task<bool> RegisterAsync(string username, string email, string password)

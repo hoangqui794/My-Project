@@ -12,3 +12,4 @@ D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\refint\DAL.dll
 D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.pdb
 D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.genruntimeconfig.cache
 D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\ref\DAL.dll
+D:\DOC\My Project\BE\Miniconect Social\DAL\obj\Debug\net9.0\DAL.sourcelink.json

@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.4",
   "info": {
-    "title": "MiniconectSocial",
-    "version": "1.0"
+    "title": "MiniconectSocial API",
+    "version": "v1"
   },
   "paths": {
     "/api/v1/register": {
@@ -128,6 +128,18 @@
           }
         }
       }
+    },
+    "/api/v1/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -188,6 +200,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Vui lòng nhập token vào đây. Ví dụ: Bearer {token}",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

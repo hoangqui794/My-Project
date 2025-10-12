@@ -1,8 +1,11 @@
 ﻿using BLL.IService;
 using DAL.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MiniconectSocial.DTos;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace MiniconectSocial.Controllers.Auth
 {
@@ -39,7 +42,8 @@ namespace MiniconectSocial.Controllers.Auth
             var token = _userService.GenerateJwtToken(user);
             return Ok(new {
                 Token = token,
-                Emai = user.Email,
+                id = user.Id,
+                Email = user.Email,
                 UserName = user.Username,
                 PictureUrl = user.Profilepictureurl,
                 Bio = user.Bio,
@@ -66,6 +70,24 @@ namespace MiniconectSocial.Controllers.Auth
             var result = await _userService.ResetPasswordAsync(dto.Token, dto.NewPassword);
             if (!result) return BadRequest("Token không hợp lệ hoặc đã hết hạn.");
             return Ok("Đổi mật khẩu thành công!");
+        }
+
+
+        [HttpPost("logout")]
+        [Authorize]
+     
+        public async Task<IActionResult> Logout()
+        {
+           
+                // Lấy Jti (định danh duy nhất của token) từ claims của người dùng hiện tại
+                var jti = User.FindFirstValue(JwtRegisteredClaimNames.Jti);
+                if (string.IsNullOrEmpty(jti)) {
+                    return BadRequest("Token không hợp lệ.");
+            }
+            await _userService.BlacklistTokenAsync(jti);
+            
+            
+            return Ok("Đăng xuất thành công");
         }
 
 

@@ -60,3 +60,4 @@ D:\DOC\My Project\BE\Miniconect Social\MiniconectSocial\bin\Debug\net9.0\Microso
 D:\DOC\My Project\BE\Miniconect Social\MiniconectSocial\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\DOC\My Project\BE\Miniconect Social\MiniconectSocial\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 D:\DOC\My Project\BE\Miniconect Social\MiniconectSocial\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+D:\DOC\My Project\BE\Miniconect Social\MiniconectSocial\obj\Debug\net9.0\MiniconectSocial.sourcelink.json

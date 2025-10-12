@@ -29,8 +29,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister, onForgotPassw
 
         try {
             await login(formData);
+            console.log('Đăng nhập thành công!');
         } catch (error) {
             setError('Invalid email or password');
+            console.error(error);
         }
     };
 

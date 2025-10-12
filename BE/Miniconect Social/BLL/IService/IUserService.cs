@@ -16,5 +16,8 @@ namespace BLL.IService
 
         Task<bool> GeneratePasswordReset(string email);
         Task<bool> ResetPasswordAsync(string token, string password);
+
+        Task BlacklistTokenAsync(string jti);
+        Task<bool> IsTokenBlacklistedAsync(string jti);
     }
 }

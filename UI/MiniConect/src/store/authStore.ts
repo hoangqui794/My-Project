@@ -61,6 +61,9 @@ export const useAuthStore = create<AuthState>()(
                 // Call logout API if needed
                 authService.logout().catch(console.error);
 
+                // Xóa dữ liệu lưu trữ
+                localStorage.removeItem('auth-storage');
+
                 set({
                     user: null,
                     token: null,

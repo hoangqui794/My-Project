@@ -33,6 +33,16 @@
   },
   {
     "ContainingType": "MiniconectSocial.Controllers.Auth.AuthController",
+    "Method": "Logout",
+    "RelativePath": "api/v1/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Auth.AuthController",
     "Method": "Register",
     "RelativePath": "api/v1/register",
     "HttpMethod": "POST",

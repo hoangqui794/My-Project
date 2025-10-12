@@ -13,3 +13,4 @@ D:\DOC\My Project\BE\Miniconect Social\BLL\obj\Debug\net9.0\BLL.dll
 D:\DOC\My Project\BE\Miniconect Social\BLL\obj\Debug\net9.0\refint\BLL.dll
 D:\DOC\My Project\BE\Miniconect Social\BLL\obj\Debug\net9.0\BLL.pdb
 D:\DOC\My Project\BE\Miniconect Social\BLL\obj\Debug\net9.0\ref\BLL.dll
+D:\DOC\My Project\BE\Miniconect Social\BLL\obj\Debug\net9.0\BLL.sourcelink.json
