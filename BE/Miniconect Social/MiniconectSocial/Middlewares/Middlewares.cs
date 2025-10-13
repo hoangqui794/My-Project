@@ -1,10 +1,4 @@
-﻿using BLL.IService;
-using Microsoft.AspNetCore.Http;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace MiniconectSocial.Middlewares
+﻿namespace MiniconectSocial.Middlewares
 {
     public class TokenBlacklistMiddleware
     {

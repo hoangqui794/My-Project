@@ -1,0 +1,16 @@
+﻿
+global using BLL.IService;
+global using BLL.Services;
+global using DAL.Data;
+global using DAL.IRepository;
+global using DAL.Repository;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.OpenApi.Models;
+global using MiniconectSocial.DTos;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;

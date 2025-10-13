@@ -1,12 +1,4 @@
-﻿using BLL.IService;
-using DAL.Data;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using MiniconectSocial.DTos;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-
+﻿
 namespace MiniconectSocial.Controllers.Auth
 {
     [ApiController]
