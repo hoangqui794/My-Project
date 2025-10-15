@@ -1,12 +1,11 @@
-﻿
-namespace MiniconectSocial.Controllers.Auth
+﻿namespace MiniconectSocial.Controllers.Auth
 {
     [ApiController]
     [Route("api/v1/")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
-        public AuthController(IUserService userService) 
+        private readonly IAuthService _userService;
+        public AuthController(IAuthService userService) 
         {
             _userService = userService;
         }
@@ -47,7 +46,7 @@ namespace MiniconectSocial.Controllers.Auth
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
         {
             var result = await _userService.GeneratePasswordReset(dto.Email);
-            if (!result) return BadRequest("Email ko tồn tại or lỗi gửi Email");
+            if (!result) return BadRequest("Email không tồn tại or lỗi gửi Email");
             //return Ok("Vui lòng kiểm tra email để đặt lại mật khẩu");
             return Ok(new
             {

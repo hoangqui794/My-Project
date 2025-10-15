@@ -98,6 +98,19 @@ const NavBar: React.FC = () => {
                 {/* <div className="absolute top-0 right-0 bg-yellow-100 text-yellow-800 px-2 py-1 text-xs rounded-bl-xl shadow-md z-50">
                     user: {JSON.stringify(user)}
                 </div> */}
+
+                {/* Clear Data Button - For debugging
+                <div className="mt-4">
+                    <button
+                        onClick={() => {
+                            localStorage.removeItem('auth-storage');
+                            window.location.reload(); // Làm mới trang để cập nhật trạng thái
+                        }}
+                        className="px-4 py-2 rounded-xl font-semibold bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-md"
+                    >
+                        Xóa dữ liệu
+                    </button>
+                </div> */}
             </div>
         </nav>
     );

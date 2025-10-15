@@ -13,7 +13,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSwitchToLogin }) => {
         confirmPassword: '',
     });
     const [error, setError] = useState('');
-
+    const [message, setMessage] = useState('');
     const { register, isLoading } = useAuthStore();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +44,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSwitchToLogin }) => {
                 email: formData.email,
                 password: formData.password,
             });
+            setError('');
+            setMessage('Đăng ký thành công! Vui lòng đăng nhập.');
+            onSwitchToLogin(); // hoặc navigate('/auth') nếu dùng react-router
         } catch (error) {
             setError('Đăng ký thất bại. Vui lòng thử lại.');
         }
@@ -58,6 +61,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSwitchToLogin }) => {
                     {error}
                 </div>
             )}
+
+            {message && (
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {message}
+                </div>
+            )}ư
 
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">

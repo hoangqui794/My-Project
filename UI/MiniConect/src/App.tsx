@@ -8,6 +8,7 @@ import SearchPage from './pages/SearchPage';
 import NotificationsPage from './pages/NotificationsPage';
 import ProfilePage from './pages/ProfilePage';
 import PrivateRoute from './components/PrivateRoute';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   const { isAuthenticated } = useAuthStore();
@@ -74,6 +75,8 @@ function App() {
             }
           />
 
+          <Route path="/reset-password" element={<ResetPassword />} />
+
           {/* Redirect to home or auth based on authentication */}
           <Route
             path="*"
@@ -81,6 +84,8 @@ function App() {
               <Navigate to={isAuthenticated ? "/" : "/auth"} replace />
             }
           />
+
+
         </Routes>
       </div>
     </Router>

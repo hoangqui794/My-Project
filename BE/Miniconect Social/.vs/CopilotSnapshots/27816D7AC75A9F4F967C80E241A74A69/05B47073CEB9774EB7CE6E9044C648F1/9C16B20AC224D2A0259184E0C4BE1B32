@@ -1,0 +1,25 @@
+﻿{
+  "SMTP": {
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "Username": "truongqui858@gmail.com",
+    "Password": "YOUR_APP_PASSWORD",
+    "FromEmail": "truongqui858@gmail.com",
+    "FromName": "Miniconect Social"
+  },
+  "Jwt": {
+    "Issuer": "MiniconectSocialIssuer",
+    "Audience": "MiniconectSocialAudience",
+    "SecretKey": "ThisIsA_Super_Secret_Key_ForJWT_123456"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Database=miniconnect_db;Username=postgres;Password=a"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}

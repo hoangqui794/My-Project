@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { authService } from '../../services/authService';
 
 interface ForgotPasswordProps {
     onBackToLogin: () => void;
@@ -18,10 +19,12 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBackToLogin }) => {
 
         try {
             // TODO: Replace with actual API call
-            await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+            await authService.forgotPassword(email);
             setMessage('Đã gửi link đặt lại mật khẩu đến email của bạn. Vui lòng kiểm tra hộp thư.');
-        } catch (error) {
-            setError('Có lỗi xảy ra. Vui lòng thử lại.');
+        } catch (error: any) {
+            if (error.response && error.response.status === 400) {
+                setError(error.response.data);
+            }
         } finally {
             setIsLoading(false);
         }

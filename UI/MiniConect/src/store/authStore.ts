@@ -43,12 +43,9 @@ export const useAuthStore = create<AuthState>()(
             register: async (data) => {
                 set({ isLoading: true });
                 try {
-                    const authData = await authService.register(data);
+                    await authService.register(data);
 
                     set({
-                        user: authData.user,
-                        token: authData.token,
-                        isAuthenticated: true,
                         isLoading: false,
                     });
                 } catch (error) {
@@ -61,9 +58,7 @@ export const useAuthStore = create<AuthState>()(
                 // Call logout API if needed
                 authService.logout().catch(console.error);
 
-                // Xóa dữ liệu lưu trữ
                 localStorage.removeItem('auth-storage');
-
                 set({
                     user: null,
                     token: null,
@@ -89,3 +84,11 @@ export const useAuthStore = create<AuthState>()(
         }
     )
 );
+
+// Lắng nghe sự kiện storage để đồng bộ trạng thái giữa các tab
+window.addEventListener('storage', (event) => {
+    if (event.key === 'auth-storage' && !event.newValue) {
+        // Xóa token và cập nhật trạng thái
+        useAuthStore.getState().logout();
+    }
+});

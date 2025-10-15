@@ -9,8 +9,10 @@
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, IUserService userService)
+        public async Task InvokeAsync(HttpContext context, IAuthService userService)
         {
+            Console.WriteLine("TokenBlacklistMiddleware initialized.");
+
             // Chỉ kiểm tra nếu người dùng đã được xác thực (có token hợp lệ)
             if (context.User.Identity?.IsAuthenticated == true)
             {
