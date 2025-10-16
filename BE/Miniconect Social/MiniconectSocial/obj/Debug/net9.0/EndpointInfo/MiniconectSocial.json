@@ -255,6 +255,50 @@
           }
         }
       }
+    },
+    "/api/v1/users/{userId}/follow": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/users/{userId}/unfollow": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -336,12 +380,13 @@
             "type": "string",
             "nullable": true
           },
-          "pictureUrl": {
+          "bio": {
             "type": "string",
             "nullable": true
           },
-          "bio": {
+          "profilePictureFile": {
             "type": "string",
+            "format": "binary",
             "nullable": true
           }
         },

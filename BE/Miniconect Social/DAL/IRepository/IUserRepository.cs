@@ -15,5 +15,9 @@
         Task<bool> CheckAndUpdatePasswordAsync(string userId, string currentPasswordHash, string newPasswordHash);
         // Lưu thay đổi vào DBContext (có thể nằm trong Generic Repository nếu bạn có)
         Task<int> SaveChangesAsync();
+         Task<bool> FollowAsync(string userId, string targetUserId);
+        Task<bool> UnfollowAsync(string userId, string targetUserId);
+
+
     }
 }

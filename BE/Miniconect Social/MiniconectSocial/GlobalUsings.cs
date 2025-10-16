@@ -14,3 +14,4 @@ global using MiniconectSocial.DTos;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
+global  using MiniconectSocial.DTos.user;

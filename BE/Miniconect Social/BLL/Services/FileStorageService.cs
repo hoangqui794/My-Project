@@ -7,7 +7,7 @@
             return  Task.CompletedTask;
         }
 
-        public async Task<string> SaveFileAsync(IFormFile file, IFormFile folderName)
+        public async Task<string> SaveFileAsync(IFormFile file, string folderName)
         {
             if (file == null || file.Length == 0)
             {

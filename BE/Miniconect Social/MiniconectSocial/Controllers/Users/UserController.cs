@@ -1,4 +1,6 @@
 ﻿
+using DAL.Data;
+
 namespace MiniconectSocial.Controllers.Users
 {
     [Authorize]
@@ -22,17 +24,27 @@ namespace MiniconectSocial.Controllers.Users
         [HttpGet("me")]
         public async Task<IActionResult> GetMyProfile()
         {
-            var userId = GetCurrentUserId();
-            if (userId == null)
+            var user = GetCurrentUserId();
+            if (user == null)
             {
                 return Unauthorized("Không thể xác định người dùng.");
             }
-            var userProfile = await _userService.GetUserProfileByIdAsync(userId);
+            var userProfile = await _userService.GetUserProfileByIdAsync(user);
             if (userProfile == null)
             {
                 return NotFound("Hồ sơ không tồn tại.");
             }
-            return Ok(userProfile);
+            return Ok(new UserProfileDto
+            {
+                Id = userProfile.Id,
+                UserName = userProfile.Username,
+                Email = userProfile.Email,
+                PictureUrl = userProfile.Profilepictureurl,
+                Bio = userProfile.Bio,
+                CreatedAt = userProfile.Createdat,
+                FollowersCount = userProfile.Followers?.Count ?? 0,
+                FollowingsCount = userProfile.Followings?.Count ?? 0
+            });
         }
 
         // 2. GET: api/v1/users/{username} - Xem hồ sơ công khai của người khác
@@ -59,7 +71,7 @@ namespace MiniconectSocial.Controllers.Users
             }
             try
             {
-                var result = await _userService.UpdateUserProfileAsync(userId, dto);
+                var result = await _userService.UpdateUserProfileAsync(userId, dto.UserName, dto.Bio,dto.ProfilePictureFile);
                 if (!result)
                 {
                     return StatusCode(500, "Cập nhật hồ sơ thất bại.");
@@ -86,7 +98,7 @@ namespace MiniconectSocial.Controllers.Users
             {
                 return Unauthorized("Không thể xác định người dùng.");
             }
-            var result = await _userService.ChangePasswordAsync(userId, dto);
+            var result = await _userService.ChangePasswordAsync(userId, dto.CurrentPassword, dto.NewPassword);
             if (!result)
             {
                 return BadRequest("Mật khẩu hiện tại không đúng hoặc cập nhật thất bại.");
@@ -121,6 +133,46 @@ namespace MiniconectSocial.Controllers.Users
                 CreatedAt = u.Createdat
             }).ToList();
             return Ok(result);
+        }
+
+        [HttpPost("{userId}/follow")]
+        public async Task<IActionResult> FollowUser(string userId)
+        {
+            var currentUserId = GetCurrentUserId();
+            if (currentUserId == null)
+            {
+                return Unauthorized("Không thể xác định người dùng.");
+            }
+            if (currentUserId == userId)
+            {
+                return BadRequest("Không thể theo dõi chính mình.");
+            }
+            var result = await _userService.FollowAsync(currentUserId, userId);
+            if (!result)
+            {
+                return BadRequest("Theo dõi thất bại. Có thể bạn đã theo dõi người này.");
+            }
+            return Ok("Đã theo dõi người dùng.");
+        }
+
+        [HttpPost("{userId}/unfollow")]
+        public async Task<IActionResult> UnfollowUser(string userId)
+        {
+            var currentUserId = GetCurrentUserId();
+            if (currentUserId == null)
+            {
+                return Unauthorized("Không thể xác định người dùng.");
+            }
+            if (currentUserId == userId)
+            {
+                return BadRequest("Không thể bỏ theo dõi chính mình.");
+            }
+            var result = await _userService.UnfollowAsync(currentUserId, userId);
+            if (!result)
+            {
+                return BadRequest("Bỏ theo dõi thất bại. Có thể bạn chưa theo dõi người này.");
+            }
+            return Ok("Đã bỏ theo dõi người dùng.");
         }
 
     }

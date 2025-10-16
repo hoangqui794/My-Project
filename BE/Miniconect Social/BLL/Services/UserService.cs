@@ -34,10 +34,12 @@ namespace BLL.Services
 
         }
 
+        
+
         public async Task<User?> GetUserProfileByIdAsync(string userId)
         {
                User? user = await _userRepository.GetByIdAsync(userId);
-                return user;
+            return user;
         }
 
 
@@ -50,6 +52,15 @@ namespace BLL.Services
         {
             var user = await _userRepository.SearchUsersAsync(query);
             return user;
+        }
+
+        public async Task<bool> UnfollowAsync(string userId, string targetUserId)
+        {
+           return await _userRepository.UnfollowAsync(userId, targetUserId);
+        }
+        public async Task<bool> FollowAsync(string userId, string targetUserId)
+        {
+            return await _userRepository.FollowAsync( userId, targetUserId);
         }
 
         public async Task<bool> UpdateUserProfileAsync(string userId, string username, string bio, IFormFile  profilePicturePath)

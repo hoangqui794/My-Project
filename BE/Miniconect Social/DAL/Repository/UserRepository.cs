@@ -24,12 +24,15 @@ namespace DAL.Repository
 
         public async Task<User> GetByIdAsync(string id)
         {
-            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Users.AsNoTracking().
+                Include(u => u.Followers).
+                Include(u => u.Followings)
+                .FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<User> GetByUsernameAsync(string username)
         {
-            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username);
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username.ToLower().Contains(username.ToLower()));
         }
 
         public async Task<int> SaveChangesAsync()
@@ -63,6 +66,29 @@ namespace DAL.Repository
         {
             return await _context.Users.ToListAsync();
         }
-   
+
+
+
+        public async Task<bool> FollowAsync(string userId, string targetUserId)
+        {
+            var user = await _context.Users.Include(u => u.Followings).FirstOrDefaultAsync(u => u.Id == userId);
+            var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == targetUserId);
+            if (user == null || targetUser == null) return false;
+            if (user.Followings.Contains(targetUser)) return false; // Đã follow rồi
+            user.Followings.Add(targetUser);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UnfollowAsync(string userId, string targetUserId)
+        {
+            var user = await _context.Users.Include(u => u.Followings).FirstOrDefaultAsync(u => u.Id == userId);
+            var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == targetUserId);
+            if (user == null || targetUser == null) return false;
+            if (!user.Followings.Contains(targetUser)) return false; // Chưa follow
+            user.Followings.Remove(targetUser);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

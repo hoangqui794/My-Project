@@ -75,6 +75,38 @@
   },
   {
     "ContainingType": "MiniconectSocial.Controllers.Users.UserController",
+    "Method": "FollowUser",
+    "RelativePath": "api/v1/users/{userId}/follow",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Users.UserController",
+    "Method": "UnfollowUser",
+    "RelativePath": "api/v1/users/{userId}/unfollow",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Users.UserController",
     "Method": "GetProfileByUsername",
     "RelativePath": "api/v1/users/{username}",
     "HttpMethod": "GET",
@@ -109,7 +141,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "BLL.DTOs.user.UpdateUserDto",
+        "Type": "MiniconectSocial.DTos.user.UpdateUserDto",
         "IsRequired": true
       }
     ],
