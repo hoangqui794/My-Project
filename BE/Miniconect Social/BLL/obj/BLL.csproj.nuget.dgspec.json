@@ -58,6 +58,10 @@
               "target": "Package",
               "version": "[4.14.1, )"
             },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
             "SendGrid": {
               "target": "Package",
               "version": "[9.29.3, )"

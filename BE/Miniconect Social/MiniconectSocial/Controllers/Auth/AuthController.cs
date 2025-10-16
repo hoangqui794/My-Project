@@ -1,4 +1,6 @@
-﻿namespace MiniconectSocial.Controllers.Auth
+﻿
+
+namespace MiniconectSocial.Controllers.Auth
 {
     [ApiController]
     [Route("api/v1/")]

@@ -1,4 +1,6 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MiniconnectDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -7,6 +9,8 @@ builder.Services.AddDbContext<MiniconnectDbContext>(
 // Đăng ký repository và service
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 // THÊM DÒNG NÀY VÀO ĐÂY
 builder.Services.AddMemoryCache();
 

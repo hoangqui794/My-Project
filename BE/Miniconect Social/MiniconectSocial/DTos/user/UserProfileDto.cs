@@ -1,4 +1,4 @@
-﻿namespace MiniconectSocial.DTos.user
+﻿namespace BLL.DTOs.user
 {
     public class UserProfileDto
     {

@@ -52,7 +52,7 @@ namespace BLL.Services
             return user;
         }
 
-        public async Task<bool> UpdateUserProfileAsync(string userId, string username, string bio, IFormFile  profilePicturePath)
+        public async Task<bool> UpdateUserProfileAsync(string userId, string username, string bio, string profilePicturePath)
         {
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null) return false;
@@ -67,7 +67,7 @@ namespace BLL.Services
                 user.Username = username;
             }
             user.Bio = bio;
-            if (profilePicturePath !=null)
+            if (!string.IsNullOrEmpty(profilePicturePath))
             {
                 // Lưu file ảnh mới lên server/cloud và lấy URL
                 var newPictureUrl = await _fileStorageService.SaveFileAsync(profilePicturePath, "profile-pictures");
@@ -75,8 +75,14 @@ namespace BLL.Services
                 {
                     throw new FileLoadException("Lỗi khi lưu ảnh đại diện.");
                 }
+                // Xóa file ảnh cũ trên server nếu có
+                if (!string.IsNullOrEmpty(user.Profilepictureurl))
+                {
+                    await _fileStorageService.DeleteFileAsync(user.Profilepictureurl);
+                }
                 // Lưu URL ảnh mới vào database
                 user.Profilepictureurl = newPictureUrl;
+                // Lưu ý: Nếu file gốc trên máy tính bị xóa, ảnh vẫn hiển thị trên web vì đã upload lên server/cloud và database chỉ lưu URL
             }
             return await _userRepository.UpdateAsync(user);
         }

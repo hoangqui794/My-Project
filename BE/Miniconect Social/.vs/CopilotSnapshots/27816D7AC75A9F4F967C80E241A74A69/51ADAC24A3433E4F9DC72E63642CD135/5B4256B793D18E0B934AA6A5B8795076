@@ -52,14 +52,14 @@ namespace BLL.Services
             return user;
         }
 
-        public async Task<bool> UpdateUserProfileAsync(string userId, string username, string bio, IFormFile  profilePicturePath)
+        public async Task<bool> UpdateUserProfileAsync(string userId, string username, string bio, string Profilepictureurl)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await  _userRepository.GetByIdAsync(userId);
             if (user == null) return false;
             if (!string.IsNullOrEmpty(username) && user.Username != username)
             {
                 var existingUser = await _userRepository.GetByUsernameAsync(username);
-                if (existingUser != null)
+                if (existingUser != null) 
                 {
                     // Ném Exception để Controller xử lý mã lỗi 409 Conflict
                     throw new InvalidOperationException("Tên người dùng đã tồn tại.");
@@ -67,17 +67,22 @@ namespace BLL.Services
                 user.Username = username;
             }
             user.Bio = bio;
-            if (profilePicturePath !=null)
+            if (Profilepictureurl != null)
             {
-                // Lưu file ảnh mới lên server/cloud và lấy URL
-                var newPictureUrl = await _fileStorageService.SaveFileAsync(profilePicturePath, "profile-pictures");
+                // Lưu file ảnh mới và lấy URL
+                var newPictureUrl = await _fileStorageService.SaveFileAsync(Profilepictureurl, "profile-pictures");
                 if (string.IsNullOrEmpty(newPictureUrl))
                 {
                     throw new FileLoadException("Lỗi khi lưu ảnh đại diện.");
                 }
-                // Lưu URL ảnh mới vào database
+                // Xóa file ảnh cũ nếu có
+                if (!string.IsNullOrEmpty(user.Profilepictureurl))
+                {
+                    await _fileStorageService.DeleteFileAsync(user.Profilepictureurl);
+                }
                 user.Profilepictureurl = newPictureUrl;
             }
+
             return await _userRepository.UpdateAsync(user);
         }
     }

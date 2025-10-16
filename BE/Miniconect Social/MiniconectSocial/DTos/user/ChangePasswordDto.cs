@@ -1,8 +1,8 @@
-﻿namespace MiniconectSocial.DTos.user
+﻿namespace BLL.DTOs.user
 {
     public class ChangePasswordDto
     {
-        public string CurrentPassword { get; set; }
-        public string NewPassword { get; set; }
+        public string? CurrentPassword { get; set; }
+        public string? NewPassword { get; set; }
     }
 }
