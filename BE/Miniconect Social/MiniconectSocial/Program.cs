@@ -1,6 +1,4 @@
-﻿
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MiniconnectDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -14,7 +12,7 @@ builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 
 // THÊM DÒNG NÀY VÀO ĐÂY
 builder.Services.AddMemoryCache();
-
+builder.Services.AddSignalR();
 
 var jwtConfig = builder.Configuration.GetSection("Jwt");
 string issuer = jwtConfig["Issuer"];
@@ -63,7 +61,6 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "MiniconectSocial API", Version = "v1" });
 
     // === PHẦN QUAN TRỌNG BẮT ĐẦU TỪ ĐÂY ===
-
     // 1. Định nghĩa cơ chế bảo mật (Security Definition)
     // Ta nói cho Swagger biết: "API của tôi dùng xác thực Bearer (JWT)."
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -75,7 +72,6 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer",
         BearerFormat = "JWT"
     });
-
     // 2. Áp dụng yêu cầu bảo mật (Security Requirement)
     // Ta nói cho Swagger biết: "Hãy thêm ổ khóa vào các endpoint và sử dụng cơ chế 'Bearer' đã định nghĩa ở trên."
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -93,6 +89,8 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -117,6 +115,7 @@ app.UseMiddleware<MiniconectSocial.Middlewares.TokenBlacklistMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<MiniconectSocial.Hubs.FollowHub>("/hubs/followHub");
+app.MapHub<MiniconectSocial.Hubs.UserHub>("/hubs/userHub");
 
 app.Run();

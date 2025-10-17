@@ -1,5 +1,4 @@
 ﻿
-using DAL.Data;
 
 namespace MiniconectSocial.Controllers.Users
 {
@@ -10,9 +9,11 @@ namespace MiniconectSocial.Controllers.Users
     {
 
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IHubContext<UserHub> _userHubContext;
+        public UserController(IUserService userService , IHubContext<UserHub> userhub)
         {
             _userService = userService;
+            _userHubContext =userhub;
         }
 
         // Hàm tiện ích để lấy User ID của người đang đăng nhập từ JWT Token
@@ -62,7 +63,7 @@ namespace MiniconectSocial.Controllers.Users
 
         // 3. PUT: api/v1/users/me - Cập nhật hồ sơ cá nhân
         [HttpPut("me")]
-        public async Task<IActionResult> UpdateMyProfile([FromBody] UpdateUserDto dto)
+        public async Task<IActionResult> UpdateMyProfile([FromForm] UpdateUserDto dto)
         {
             var userId = GetCurrentUserId();
             if (userId == null)
@@ -76,8 +77,37 @@ namespace MiniconectSocial.Controllers.Users
                 {
                     return StatusCode(500, "Cập nhật hồ sơ thất bại.");
                 }
+                var updated = await _userService.GetUserProfileByIdAsync(userId);
+                if (updated != null) {
+                       var payload = new
+                       {
+                          id = updated.Id,
+                            username = updated.Username,
+                            pictureUrl = updated.Profilepictureurl,
+                            bio = updated.Bio,
+                            createdAt = updated.Createdat,
+                            followersCount = updated.Followers?.Count ?? 0,
+                            followingsCount = updated.Followings?.Count ?? 0
+                       };
+                    await _userHubContext.Clients.Group(userId).SendAsync("ProfileUpdated", payload);
+
+                    if(updated.Followers != null)
+                    {
+                        foreach(var follower in updated.Followers)
+                        {
+                            await _userHubContext.Clients.Group(follower.Id).SendAsync("ProfileUpdated", new
+                            {
+                                id = updated.Id,
+                                username = updated.Username,
+                                pictureUrl = updated.Profilepictureurl,
+                                bio = updated.Bio
+                            });
+
+                        }
+                    }
+                }
                 return Ok("Cập nhật thành công");
-            }
+            }   
             catch (InvalidOperationException ex)
             {
                 // Xử lý lỗi trùng lặp Username từ Service
@@ -116,13 +146,6 @@ namespace MiniconectSocial.Controllers.Users
                 return BadRequest("Tham số tìm kiếm không được để trống.");
             }
             var users = await _userService.SearchUsersAsync(query);
-            //var result = users.Select(u => new
-            //{
-            //    u.Id,
-            //    u.Username,
-            //    u.Profilepictureurl,
-            //    u.Bio
-            //});
             var result = users.Select(u => new UserProfileDto
             {
                 Id = u.Id,
@@ -152,6 +175,26 @@ namespace MiniconectSocial.Controllers.Users
             {
                 return BadRequest("Theo dõi thất bại. Có thể bạn đã theo dõi người này.");
             }
+            var targetProfile = await _userService.GetUserProfileByIdAsync(userId);
+            var sourceProfile = await _userService.GetUserProfileByIdAsync(currentUserId);
+
+            var targetPayload = new
+            {
+                type ="follow",
+                byUserId = currentUserId,
+                follwersCount = targetProfile.Followers?.Count ?? 0
+            };
+
+            var sourcePayload = new
+            {
+                type ="follow",
+                toUserId = userId,
+                followingsCount = sourceProfile.Followings?.Count ?? 0
+            };
+
+            await _userHubContext.Clients.Group(userId).SendAsync("FollowChanged", targetPayload);
+            await _userHubContext.Clients.Group(currentUserId).SendAsync("FollowChanged", sourcePayload);
+
             return Ok("Đã theo dõi người dùng.");
         }
 
@@ -172,6 +215,23 @@ namespace MiniconectSocial.Controllers.Users
             {
                 return BadRequest("Bỏ theo dõi thất bại. Có thể bạn chưa theo dõi người này.");
             }
+
+            var targetProfile = await _userService.GetUserProfileByIdAsync(userId);
+            var sourceProfile = await _userService.GetUserProfileByIdAsync(currentUserId);
+            var targetPayload = new
+            {
+                type = "unfollow",
+                byUserId = currentUserId,
+                follwersCount = targetProfile.Followers?.Count ?? 0
+            };
+            var sourcePayload = new
+            {
+                type = "unfollow",
+                toUserId = userId,
+                followingsCount = sourceProfile.Followings?.Count ?? 0
+            };
+            await _userHubContext.Clients.Group(userId).SendAsync("FollowChanged", targetPayload);
+            await _userHubContext.Clients.Group(currentUserId).SendAsync("FollowChanged", sourcePayload);
             return Ok("Đã bỏ theo dõi người dùng.");
         }
 

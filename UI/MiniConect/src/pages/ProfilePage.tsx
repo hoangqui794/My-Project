@@ -1,9 +1,29 @@
+
 import React from 'react';
 import NavBar from '../components/layout/NavBar';
 import { useAuthStore } from '../store/authStore';
+import { useSignalR } from '../hooks/useSignalR';
+import type { User } from '../types/user.types';
+
+
+const HUB_URL = (import.meta.env.VITE_API_BASE_URL || '') + '/hubs/userHub';
 
 const ProfilePage: React.FC = () => {
-    const { user } = useAuthStore();
+    const { user, setUser } = useAuthStore();
+
+    // Listen for real-time profile updates
+    useSignalR(HUB_URL, {
+        ProfileUpdated: (updated: User) => {
+            if (user && updated.id === user.id) {
+                setUser({ ...user, ...updated });
+            }
+        },
+        FollowChanged: (payload: { userId: string; followerCount: number; followingCount: number }) => {
+            if (user && payload.userId === user.id) {
+                setUser({ ...user, followerCount: payload.followerCount, followingCount: payload.followingCount });
+            }
+        },
+    });
 
     if (!user) return null;
 

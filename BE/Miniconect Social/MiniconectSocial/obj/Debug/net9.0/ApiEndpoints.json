@@ -140,9 +140,19 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "MiniconectSocial.DTos.user.UpdateUserDto",
-        "IsRequired": true
+        "Name": "UserName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Bio",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProfilePictureFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

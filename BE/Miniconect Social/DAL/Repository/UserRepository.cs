@@ -55,7 +55,12 @@ namespace DAL.Repository
 
         public async Task<bool> UpdateAsync(User user)
         {
-            _context.Users.Update(user);
+            //_context.Users.Update(user);
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+            if (existingUser == null) return false;
+            existingUser.Username = user.Username;
+            existingUser.Bio = user.Bio;
+            existingUser.Profilepictureurl = user.Profilepictureurl;
             return await SaveChangesAsync() > 0;
         }
         public Task<bool> CheckAndUpdatePasswordAsync(string userId, string currentPasswordHash, string newPasswordHash)

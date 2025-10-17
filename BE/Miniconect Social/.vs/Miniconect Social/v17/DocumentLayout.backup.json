@@ -7,20 +7,20 @@
       "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\controllers\\users\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5875EBB1-01BE-2D17-3613-D0BAD09CBB40}|BLL\\BLL.csproj|d:\\doc\\my project\\be\\miniconect social\\bll\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5875EBB1-01BE-2D17-3613-D0BAD09CBB40}|BLL\\BLL.csproj|solutionrelative:bll\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\dtos\\user\\userprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\dtos\\user\\userprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\irepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\irepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\hubs\\userhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\hubs\\userhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\hubs\\followhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\hubs\\followhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,41 +34,41 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\IRepository\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "DAL\\IRepository\\IUserRepository.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\IRepository\\IUserRepository.cs",
-              "RelativeToolTip": "DAL\\IRepository\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T08:10:05.556Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "BLL\\Services\\UserService.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\Services\\UserService.cs",
-              "RelativeToolTip": "BLL\\Services\\UserService.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwDoAAABMAAAAAAAAAA==",
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\UserRepository.cs",
+              "RelativeDocumentMoniker": "DAL\\Repository\\UserRepository.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\UserRepository.cs",
+              "RelativeToolTip": "DAL\\Repository\\UserRepository.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAhwDcAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T07:19:11.871Z",
+              "WhenOpened": "2025-10-17T06:26:48.32Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "UserProfileDto.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\DTos\\user\\UserProfileDto.cs",
-              "RelativeDocumentMoniker": "MiniconectSocial\\DTos\\user\\UserProfileDto.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\DTos\\user\\UserProfileDto.cs",
-              "RelativeToolTip": "MiniconectSocial\\DTos\\user\\UserProfileDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "Title": "UserHub.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Hubs\\UserHub.cs",
+              "RelativeDocumentMoniker": "MiniconectSocial\\Hubs\\UserHub.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Hubs\\UserHub.cs",
+              "RelativeToolTip": "MiniconectSocial\\Hubs\\UserHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T07:43:59.736Z",
+              "WhenOpened": "2025-10-17T02:31:13.853Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FollowHub.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Hubs\\FollowHub.cs",
+              "RelativeDocumentMoniker": "MiniconectSocial\\Hubs\\FollowHub.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Hubs\\FollowHub.cs",
+              "RelativeToolTip": "MiniconectSocial\\Hubs\\FollowHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-17T02:17:04.404Z",
               "EditorCaption": ""
             },
             {
@@ -79,22 +79,22 @@
               "RelativeDocumentMoniker": "MiniconectSocial\\Controllers\\Users\\UserController.cs",
               "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Users\\UserController.cs",
               "RelativeToolTip": "MiniconectSocial\\Controllers\\Users\\UserController.cs",
-              "ViewState": "AgIAAJQAAAAAAAAAAAAYwKcAAABDAAAAAAAAAA==",
+              "ViewState": "AgIAADUAAAAAAAAAAAAgwEEAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T04:26:08.204Z",
+              "WhenOpened": "2025-10-17T02:34:23.806Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\UserRepository.cs",
-              "RelativeDocumentMoniker": "DAL\\Repository\\UserRepository.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\UserRepository.cs",
-              "RelativeToolTip": "DAL\\Repository\\UserRepository.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAQwEwAAAAlAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Program.cs",
+              "RelativeDocumentMoniker": "MiniconectSocial\\Program.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Program.cs",
+              "RelativeToolTip": "MiniconectSocial\\Program.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAQwGEAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T07:47:24.528Z",
+              "WhenOpened": "2025-10-17T02:17:02.374Z",
               "EditorCaption": ""
             }
           ]
