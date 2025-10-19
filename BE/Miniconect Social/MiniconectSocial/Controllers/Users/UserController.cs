@@ -19,7 +19,8 @@ namespace MiniconectSocial.Controllers.Users
         // Hàm tiện ích để lấy User ID của người đang đăng nhập từ JWT Token
         private string? GetCurrentUserId()
         {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return User.FindFirstValue(ClaimTypes.NameIdentifier)
+              ?? User.FindFirstValue("sub");
         }
 
         [HttpGet("me")]

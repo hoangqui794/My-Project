@@ -4,23 +4,50 @@ let connection: signalR.HubConnection | null = null;
 
 export const initSignalR = (hubUrl: string, accessTokenFactory?: (() => string | Promise<string>)) => {
     if (connection) return connection;
+    // Đảm bảo accessTokenFactory luôn trả về chuỗi hoặc Promise<string>
+    const tokenFactory = async () => {
+        const raw = accessTokenFactory ? await accessTokenFactory() : localStorage.getItem('token') || '';
+        if (typeof raw === 'string') return raw;
+        if (raw && typeof raw === 'object' && 'token' in raw) return String((raw as any).token);
+        return '';
+    };
     connection = new signalR.HubConnectionBuilder()
-        .withUrl(hubUrl, { accessTokenFactory: accessTokenFactory ?? (() => '') })
+        .withUrl(hubUrl, { accessTokenFactory: tokenFactory })
         .withAutomaticReconnect()
         .configureLogging(signalR.LogLevel.Error)
         .build();
 
     connection.onclose((err) => {
-        if (err) console.warn('SignalR closed with error:', err);
+        if (err) {
+            console.warn('SignalR closed with error:', err);
+        } else {
+            console.log('SignalR connection closed normally.');
+        }
     });
 
+    connection.onreconnecting((err) => {
+        console.warn('SignalR reconnecting...', err);
+    });
+
+    connection.onreconnected((connectionId) => {
+        console.log('SignalR reconnected. ConnectionId:', connectionId);
+    });
+
+    console.log('SignalR connection initialized. State:', connection.state);
     return connection;
 };
 
 export const startSignalR = async () => {
     if (!connection) throw new Error('SignalR not initialized.');
-    if (connection.state === signalR.HubConnectionState.Connected) return connection;
-    await connection.start();
+    if (connection.state !== signalR.HubConnectionState.Disconnected) {
+        await stopSignalR();
+    }
+    try {
+        await connection.start();
+        console.log('SignalR connected! State:', connection.state);
+    } catch (err) {
+        console.error('SignalR failed to connect:', err);
+    }
     return connection;
 };
 

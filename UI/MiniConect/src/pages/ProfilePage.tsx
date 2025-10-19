@@ -1,21 +1,42 @@
 
-import React from 'react';
-import NavBar from '../components/layout/NavBar';
-import { useAuthStore } from '../store/authStore';
-import { useSignalR } from '../hooks/useSignalR';
+import React, { useState } from 'react';
 import type { User } from '../types/user.types';
+import NavBar from '../components/layout/NavBar';
+import { useUserStore } from '../store/userStore';
+import { useSignalR } from '../hooks/useSignalR';
+
+import EditProfile from '../components/user/EditProfile';
+import { fetchUser } from '../services/userApi';
 
 
 const HUB_URL = (import.meta.env.VITE_API_BASE_URL || '') + '/hubs/userHub';
 
+import { useEffect } from 'react';
+
 const ProfilePage: React.FC = () => {
-    const { user, setUser } = useAuthStore();
+    const { user, setUser } = useUserStore();
+    const [showEdit, setShowEdit] = useState(false);
+
+    // Fetch user info on mount if not available
+    useEffect(() => {
+        if (!user) {
+            fetchUser()
+                .then(setUser)
+                .catch(console.error);
+        }
+    }, [user, setUser]);
+
+    // Hàm reload lại user sau khi chỉnh sửa
+    const reloadUser = async () => {
+        const newUser = await fetchUser();
+        setUser({ ...newUser, postCount: newUser.postCount ?? 0 });
+    };
 
     // Listen for real-time profile updates
     useSignalR(HUB_URL, {
         ProfileUpdated: (updated: User) => {
             if (user && updated.id === user.id) {
-                setUser({ ...user, ...updated });
+                setUser({ ...user, ...updated, postCount: updated.postCount ?? user.postCount ?? 0 });
             }
         },
         FollowChanged: (payload: { userId: string; followerCount: number; followingCount: number }) => {
@@ -24,6 +45,7 @@ const ProfilePage: React.FC = () => {
             }
         },
     });
+
 
     if (!user) return null;
 
@@ -51,7 +73,39 @@ const ProfilePage: React.FC = () => {
                             <p className="text-gray-600">{user.email}</p>
                             {user.bio && <p className="text-gray-700 mt-2">{user.bio}</p>}
                         </div>
+                        <button
+                            className="ml-auto bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-5 py-2 rounded-full shadow hover:from-blue-600 hover:to-indigo-700 transition font-semibold text-base"
+                            onClick={() => setShowEdit(true)}
+                        >
+                            <svg className="inline w-5 h-5 mr-1 -mt-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-2.828 0L9 13zm0 0V21h8" /></svg>
+                            Chỉnh sửa
+                        </button>
                     </div>
+
+                    {showEdit && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                            <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md relative animate-fadeIn">
+                                <button
+                                    className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition text-2xl font-bold"
+                                    onClick={() => setShowEdit(false)}
+                                    aria-label="Đóng"
+                                >
+                                    ×
+                                </button>
+                                <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Chỉnh sửa hồ sơ</h3>
+                                <EditProfile
+                                    user={{
+                                        username: user.username,
+                                        bio: user.bio ?? ''
+                                    }}
+                                    onSuccess={() => {
+                                        setShowEdit(false);
+                                        reloadUser();
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )}
 
                     <div className="grid grid-cols-3 gap-4 text-center">
                         <div>

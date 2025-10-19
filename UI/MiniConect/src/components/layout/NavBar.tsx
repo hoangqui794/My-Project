@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useUserStore } from '../../store/userStore';
 import { useAuthStore } from '../../store/authStore';
 
 const NavBar: React.FC = () => {
     const location = useLocation();
-    const { user, logout } = useAuthStore();
+    const { user } = useUserStore();
+    const { logout } = useAuthStore();
 
     const isActive = (path: string) => {
         return location.pathname === path ? 'bg-blue-700 text-white shadow-lg' : 'text-blue-100 hover:bg-blue-600 hover:text-white';
@@ -99,8 +101,8 @@ const NavBar: React.FC = () => {
                     user: {JSON.stringify(user)}
                 </div> */}
 
-                {/* Clear Data Button - For debugging
-                <div className="mt-4">
+                {/* Clear Data Button - For debugging */}
+                {/* <div className="mt-4">
                     <button
                         onClick={() => {
                             localStorage.removeItem('auth-storage');
@@ -111,6 +113,7 @@ const NavBar: React.FC = () => {
                         Xóa dữ liệu
                     </button>
                 </div> */}
+
             </div>
         </nav>
     );
