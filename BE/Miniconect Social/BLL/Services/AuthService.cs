@@ -158,6 +158,8 @@ namespace BLL.Services
             }
             catch (Exception ex) {
                 Console.WriteLine("lỗi" + ex.Message);
+                Console.WriteLine("Token validation error: " + ex.ToString());
+
                 return false;
             }
         }

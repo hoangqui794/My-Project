@@ -6,6 +6,7 @@ import { useUserStore } from '../store/userStore';
 import { useSignalR } from '../hooks/useSignalR';
 
 import EditProfile from '../components/user/EditProfile';
+import ChangePassword from '../components/user/ChangePassword';
 import { fetchUser } from '../services/userApi';
 
 
@@ -16,6 +17,8 @@ import { useEffect } from 'react';
 const ProfilePage: React.FC = () => {
     const { user, setUser } = useUserStore();
     const [showEdit, setShowEdit] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
+    const [showChangePassword, setShowChangePassword] = useState(false);
 
     // Fetch user info on mount if not available
     useEffect(() => {
@@ -54,7 +57,7 @@ const ProfilePage: React.FC = () => {
             <NavBar />
             <div className="max-w-4xl mx-auto py-6 px-4">
                 <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-                    <div className="flex items-center space-x-4 mb-6">
+                    <div className="flex items-center space-x-4 mb-6 relative">
                         {user.avatar ? (
                             <img
                                 src={user.avatar}
@@ -73,13 +76,49 @@ const ProfilePage: React.FC = () => {
                             <p className="text-gray-600">{user.email}</p>
                             {user.bio && <p className="text-gray-700 mt-2">{user.bio}</p>}
                         </div>
-                        <button
-                            className="ml-auto bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-5 py-2 rounded-full shadow hover:from-blue-600 hover:to-indigo-700 transition font-semibold text-base"
-                            onClick={() => setShowEdit(true)}
-                        >
-                            <svg className="inline w-5 h-5 mr-1 -mt-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-2.828 0L9 13zm0 0V21h8" /></svg>
-                            Chỉnh sửa
-                        </button>
+                        <div className="ml-auto flex items-center gap-2">
+                            <button
+                                className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-5 py-2 rounded-full shadow hover:from-blue-600 hover:to-indigo-700 transition font-semibold text-base"
+                                onClick={() => setShowEdit(true)}
+                            >
+                                <svg className="inline w-5 h-5 mr-1 -mt-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-2.828 0L9 13zm0 0V21h8" /></svg>
+                                Chỉnh sửa
+                            </button>
+                            <div className="relative">
+                                <button
+                                    className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition"
+                                    onClick={() => setShowMenu((v) => !v)}
+                                    aria-label="Menu"
+                                >
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="19" cy="12" r="2" /></svg>
+                                </button>
+                                {showMenu && (
+                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg z-10 border border-gray-100 animate-fadeIn">
+                                        <button
+                                            className="w-full text-left px-4 py-3 hover:bg-blue-50 text-blue-700 font-semibold rounded-xl"
+                                            onClick={() => { setShowChangePassword(true); setShowMenu(false); }}
+                                        >
+                                            Đổi mật khẩu
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        {/* Popup đổi mật khẩu */}
+                        {showChangePassword && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                                <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md relative animate-fadeIn">
+                                    <button
+                                        className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition text-2xl font-bold"
+                                        onClick={() => setShowChangePassword(false)}
+                                        aria-label="Đóng"
+                                    >
+                                        ×
+                                    </button>
+                                    <ChangePassword />
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {showEdit && (

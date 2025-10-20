@@ -1,7 +1,9 @@
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User } from '../types';
+import type { User } from '../types/user.types';
 import { authService } from '../services/authService';
+import { useUserStore } from './userStore';
 
 interface AuthState {
     user: User | null;
@@ -23,7 +25,7 @@ export const useAuthStore = create<AuthState>()(
             isAuthenticated: false,
             isLoading: false,
 
-            login: async (credentials) => {
+            login: async (credentials: { email: string; password: string }) => {
                 set({ isLoading: true });
                 try {
                     const data = await authService.login(credentials);
@@ -34,13 +36,15 @@ export const useAuthStore = create<AuthState>()(
                         isAuthenticated: true,
                         isLoading: false,
                     });
+                    // Đồng bộ user vào userStore để NavBar luôn hiển thị tên user
+                    useUserStore.getState().setUser(data.user);
                 } catch (error) {
                     set({ isLoading: false });
                     throw error;
                 }
             },
 
-            register: async (data) => {
+            register: async (data: { username: string; email: string; password: string }) => {
                 set({ isLoading: true });
                 try {
                     await authService.register(data);
@@ -66,17 +70,17 @@ export const useAuthStore = create<AuthState>()(
                 });
             },
 
-            setUser: (user) => {
+            setUser: (user: User) => {
                 set({ user });
             },
 
-            setLoading: (loading) => {
+            setLoading: (loading: boolean) => {
                 set({ isLoading: loading });
             },
         }),
         {
             name: 'auth-storage',
-            partialize: (state) => ({
+            partialize: (state: AuthState) => ({
                 user: state.user,
                 token: state.token,
                 isAuthenticated: state.isAuthenticated,

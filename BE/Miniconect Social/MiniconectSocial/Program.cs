@@ -6,9 +6,11 @@ builder.Services.AddDbContext<MiniconnectDbContext>(
 
 // Đăng ký repository và service
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+//builder.Services.AddScoped < IPostRepository, PostRepository()>;
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+
 
 // THÊM DÒNG NÀY VÀO ĐÂY
 builder.Services.AddMemoryCache();
