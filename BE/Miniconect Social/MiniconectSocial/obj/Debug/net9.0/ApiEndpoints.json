@@ -359,6 +359,16 @@
   },
   {
     "ContainingType": "MiniconectSocial.Controllers.Users.UserController",
+    "Method": "GetMyPosts",
+    "RelativePath": "api/v1/users/me/posts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Users.UserController",
     "Method": "SearchUsers",
     "RelativePath": "api/v1/users/search",
     "HttpMethod": "GET",

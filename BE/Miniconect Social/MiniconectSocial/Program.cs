@@ -13,7 +13,6 @@ builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IPostService, PostService>();
 
-
 // THÊM DÒNG NÀY VÀO ĐÂY
 builder.Services.AddMemoryCache();
 builder.Services.AddSignalR();
@@ -23,7 +22,7 @@ string issuer = jwtConfig["Issuer"];
 string audience = jwtConfig["Audience"];
 string secretKey = jwtConfig["SecretKey"];
 
-builder.Services.AddAuthentication( options =>
+builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -81,28 +80,25 @@ builder.Services.AddSwaggerGen(options =>
     // Ta nói cho Swagger biết: "Hãy thêm ổ khóa vào các endpoint và sử dụng cơ chế 'Bearer' đã định nghĩa ở trên."
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        {
-            new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference
+                new OpenApiSecurityScheme
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer" // ID này phải khớp với tên đã định nghĩa ở trên
-                }
-            },
-            new string[] {}
-        }
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer" // ID này phải khớp với tên đã định nghĩa ở trên
+                    }
+                },
+                new string[] {}
+            }
     });
 });
-
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
-
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // Redirect về trang Swagger khi truy cập "/"
 app.MapGet("/", context =>

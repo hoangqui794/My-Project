@@ -207,6 +207,7 @@ namespace MiniconectSocial.Controllers.Post
             {
                 PostId = postId
             });
+
             return NoContent();
         }
     }

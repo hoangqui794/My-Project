@@ -1,20 +1,19 @@
-﻿
-namespace DAL.Repository
+﻿namespace DAL.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly MiniconnectDbContext _context;
+
         public UserRepository(MiniconnectDbContext context)
         {
             _context = context;
         }
+
         public async Task AddUserAsync(User user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
         }
-
-       
 
         public async Task<User> GetByEmailAsync(string email)
         {
@@ -26,7 +25,8 @@ namespace DAL.Repository
         {
             return await _context.Users.AsNoTracking().
                 Include(u => u.Followers).
-                Include(u => u.Followings)
+                Include(u => u.Followings).
+                Include(u => u.PostsNavigation)
                 .FirstOrDefaultAsync(i => i.Id == id);
         }
 
@@ -42,15 +42,14 @@ namespace DAL.Repository
 
         public async Task<List<User>> SearchUsersAsync(string query)
         {
-            if(string.IsNullOrWhiteSpace(query))
+            if (string.IsNullOrWhiteSpace(query))
             {
                 return new List<User>();
             }
             var loweredQuery = query.ToLower();
-            return await   _context.Users.AsNoTracking()
+            return await _context.Users.AsNoTracking()
                 .Where(u => u.Username.ToLower().Contains(loweredQuery) || u.Email.ToLower().Contains(loweredQuery))
                 .ToListAsync();
-
         }
 
         public async Task<bool> UpdateAsync(User user)
@@ -63,16 +62,16 @@ namespace DAL.Repository
             existingUser.Profilepictureurl = user.Profilepictureurl;
             return await SaveChangesAsync() > 0;
         }
+
         public Task<bool> CheckAndUpdatePasswordAsync(string userId, string currentPasswordHash, string newPasswordHash)
         {
             throw new NotImplementedException("Logic kiểm tra mật khẩu đã được chuyển lên tầng Service.");
         }
+
         public async Task<List<User>> GetAllUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }
-
-
 
         public async Task<bool> FollowAsync(string userId, string targetUserId)
         {

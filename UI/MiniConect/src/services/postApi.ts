@@ -2,9 +2,27 @@ import { apiClient } from '../utils/apiClient';
 import type { Post, CreatePostRequest, Comment, CreateCommentRequest } from '../types/post.types';
 
 // Lấy danh sách bài viết
-export const fetchPosts = async (): Promise<Post[]> => {
-    const response = await apiClient.get('/api/v1/posts');
-    return response.data;
+export const fetchPosts = async (skip = 0, take = 20): Promise<Post[]> => {
+    const response = await apiClient.get('/api/v1/posts', {
+        params: { skip, take }
+    });
+
+    return response.data.map((post: any) => ({
+        id: post.id,
+        content: post.content,
+        imageUrl: post.imageurl ? `data:image/png;base64,${post.imageurl}` : undefined,
+        createdAt: post.createdat,
+        updatedAt: post.updatedat || post.createdat,
+        authorId: post.authorid,
+        author: {
+            id: post.authorid,
+            username: post.authorname,
+            avatar: post.authorAvatar ? `data:image/png;base64,${post.authorAvatar}` : undefined,
+        },
+        commentCount: post.commentCount,
+        likeCount: post.likeCount,
+        isLiked: post.isLiked ?? false,
+    }));
 };
 
 // Đăng bài mới

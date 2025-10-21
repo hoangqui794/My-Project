@@ -6,11 +6,17 @@ interface PostItemProps {
     onLike: (postId: string) => void;
     onComment: (postId: string, content: string) => void;
     onShare: (postId: string) => void;
+    onDelete?: (postId: string) => void;
+    isOwner?: boolean;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare }) => {
+import { deletePost } from '../../services/postApi';
+const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare, onDelete, isOwner }) => {
     const [showComments, setShowComments] = useState(false);
     const [commentText, setCommentText] = useState('');
+    const [showMenu, setShowMenu] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const handleLike = () => {
         onLike(post.id);
@@ -37,7 +43,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare })
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-6 mb-4">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-4 relative">
             {/* Header */}
             <div className="flex items-center mb-4">
                 {post.author.avatar ? (
@@ -57,6 +63,66 @@ const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare })
                     <h3 className="font-semibold text-gray-900">{post.author.username}</h3>
                     <p className="text-sm text-gray-500">{formatDate(post.createdAt)}</p>
                 </div>
+                {/* Menu 3 chấm */}
+                {isOwner && (
+                    <div className="ml-auto relative">
+                        <button
+                            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition"
+                            onClick={() => setShowMenu((v) => !v)}
+                            aria-label="Menu"
+                        >
+                            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="19" cy="12" r="2" /></svg>
+                        </button>
+                        {showMenu && (
+                            <div className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg z-10 border border-gray-100 animate-fadeIn">
+                                <button
+                                    className="w-full text-left px-4 py-3 hover:bg-red-50 text-red-700 font-semibold rounded-xl"
+                                    disabled={isDeleting}
+                                    onClick={() => setShowConfirm(true)}
+                                >
+                                    {isDeleting ? 'Đang xóa...' : 'Xóa bài viết'}
+                                </button>
+                            </div>
+                        )}
+                        {/* Modal xác nhận xóa bài viết */}
+                        {showConfirm && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                                <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-xs relative animate-fadeIn">
+                                    <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Xác nhận xóa bài viết</h3>
+                                    <p className="text-gray-700 mb-6 text-center">Bạn có chắc muốn xóa bài viết này?</p>
+                                    <div className="flex justify-center gap-4">
+                                        <button
+                                            className="px-4 py-2 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600"
+                                            disabled={isDeleting}
+                                            onClick={async () => {
+                                                console.log('Xóa bài viết:', post.id);
+                                                setIsDeleting(true);
+                                                try {
+                                                    await deletePost(post.id);
+                                                    if (onDelete) onDelete(post.id);
+                                                } catch (e) {
+                                                    alert('Xóa bài viết thất bại!');
+                                                }
+                                                setIsDeleting(false);
+                                                setShowConfirm(false);
+                                                setShowMenu(false);
+                                            }}
+                                        >
+                                            {isDeleting ? 'Đang xóa...' : 'Xóa'}
+                                        </button>
+                                        <button
+                                            className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300"
+                                            onClick={() => setShowConfirm(false)}
+                                            disabled={isDeleting}
+                                        >
+                                            Hủy
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Content */}
@@ -77,8 +143,8 @@ const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare })
                     <button
                         onClick={handleLike}
                         className={`flex items-center space-x-1 px-3 py-1 rounded ${post.isLiked
-                                ? 'bg-red-100 text-red-600'
-                                : 'hover:bg-gray-100 text-gray-600'
+                            ? 'bg-red-100 text-red-600'
+                            : 'hover:bg-gray-100 text-gray-600'
                             }`}
                     >
                         <span>{post.isLiked ? '❤️' : '🤍'}</span>

@@ -28,7 +28,6 @@ const NavBar: React.FC = () => {
                     {/* Navigation Links - Desktop */}
                     <div className="hidden md:flex gap-1 lg:gap-3">
                         <Link to="/" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/')}`}>Trang chủ</Link>
-                        <Link to="/blog" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/blog')}`}>Blog</Link>
                         <Link to="/messages" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/messages')}`}>Tin nhắn</Link>
                         <Link to="/search" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/search')}`}>Tìm kiếm</Link>
                         <Link to="/notifications" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/notifications')}`}>Thông báo</Link>
@@ -95,14 +94,8 @@ const NavBar: React.FC = () => {
                         )}
                     </div>
                 </div>
-
-                {/* Debug user info */}
-                {/* <div className="absolute top-0 right-0 bg-yellow-100 text-yellow-800 px-2 py-1 text-xs rounded-bl-xl shadow-md z-50">
-                    user: {JSON.stringify(user)}
-                </div> */}
-
                 {/* Clear Data Button - For debugging */}
-                {/* <div className="mt-4">
+                <div className="mt-4">
                     <button
                         onClick={() => {
                             localStorage.removeItem('auth-storage');
@@ -112,7 +105,7 @@ const NavBar: React.FC = () => {
                     >
                         Xóa dữ liệu
                     </button>
-                </div> */}
+                </div>
 
             </div>
         </nav>

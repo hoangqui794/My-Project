@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useAuthStore } from './store/authStore';
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage';
-import BlogPage from './pages/BlogPage';
 import MessagesPage from './pages/MessagesPage';
 import SearchPage from './pages/SearchPage';
 import NotificationsPage from './pages/NotificationsPage';
@@ -31,14 +30,6 @@ function App() {
             element={
               <PrivateRoute>
                 <HomePage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/blog"
-            element={
-              <PrivateRoute>
-                <BlogPage />
               </PrivateRoute>
             }
           />

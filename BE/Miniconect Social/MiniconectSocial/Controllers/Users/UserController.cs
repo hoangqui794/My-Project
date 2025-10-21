@@ -1,4 +1,4 @@
-﻿
+﻿using MiniconectSocial.DTos.post;
 
 namespace MiniconectSocial.Controllers.Users
 {
@@ -7,13 +7,15 @@ namespace MiniconectSocial.Controllers.Users
     [Route("api/v1/users")]
     public class UserController : ControllerBase
     {
-
         private readonly IUserService _userService;
         private readonly IHubContext<UserHub> _userHubContext;
-        public UserController(IUserService userService , IHubContext<UserHub> userhub)
+        private readonly IPostService _postService;
+
+        public UserController(IUserService userService, IHubContext<UserHub> userhub, IPostService postService)
         {
             _userService = userService;
-            _userHubContext =userhub;
+            _userHubContext = userhub;
+            _postService = postService;
         }
 
         // Hàm tiện ích để lấy User ID của người đang đăng nhập từ JWT Token
@@ -44,6 +46,7 @@ namespace MiniconectSocial.Controllers.Users
                 PictureUrl = userProfile.Profilepictureurl,
                 Bio = userProfile.Bio,
                 CreatedAt = userProfile.Createdat,
+                PostCount = userProfile.PostsNavigation?.Count ?? 0,
                 FollowersCount = userProfile.Followers?.Count ?? 0,
                 FollowingsCount = userProfile.Followings?.Count ?? 0
             });
@@ -73,28 +76,29 @@ namespace MiniconectSocial.Controllers.Users
             }
             try
             {
-                var result = await _userService.UpdateUserProfileAsync(userId, dto.UserName, dto.Bio,dto.ProfilePictureFile);
+                var result = await _userService.UpdateUserProfileAsync(userId, dto.UserName, dto.Bio, dto.ProfilePictureFile);
                 if (!result)
                 {
                     return StatusCode(500, "Cập nhật hồ sơ thất bại.");
                 }
                 var updated = await _userService.GetUserProfileByIdAsync(userId);
-                if (updated != null) {
-                       var payload = new
-                       {
-                          id = updated.Id,
-                            username = updated.Username,
-                            pictureUrl = updated.Profilepictureurl,
-                            bio = updated.Bio,
-                            createdAt = updated.Createdat,
-                            followersCount = updated.Followers?.Count ?? 0,
-                            followingsCount = updated.Followings?.Count ?? 0
-                       };
+                if (updated != null)
+                {
+                    var payload = new
+                    {
+                        id = updated.Id,
+                        username = updated.Username,
+                        pictureUrl = updated.Profilepictureurl,
+                        bio = updated.Bio,
+                        createdAt = updated.Createdat,
+                        followersCount = updated.Followers?.Count ?? 0,
+                        followingsCount = updated.Followings?.Count ?? 0
+                    };
                     await _userHubContext.Clients.Group(userId).SendAsync("ProfileUpdated", payload);
 
-                    if(updated.Followers != null)
+                    if (updated.Followers != null)
                     {
-                        foreach(var follower in updated.Followers)
+                        foreach (var follower in updated.Followers)
                         {
                             await _userHubContext.Clients.Group(follower.Id).SendAsync("ProfileUpdated", new
                             {
@@ -103,12 +107,11 @@ namespace MiniconectSocial.Controllers.Users
                                 pictureUrl = updated.Profilepictureurl,
                                 bio = updated.Bio
                             });
-
                         }
                     }
                 }
                 return Ok("Cập nhật thành công");
-            }   
+            }
             catch (InvalidOperationException ex)
             {
                 // Xử lý lỗi trùng lặp Username từ Service
@@ -181,14 +184,14 @@ namespace MiniconectSocial.Controllers.Users
 
             var targetPayload = new
             {
-                type ="follow",
+                type = "follow",
                 byUserId = currentUserId,
                 follwersCount = targetProfile.Followers?.Count ?? 0
             };
 
             var sourcePayload = new
             {
-                type ="follow",
+                type = "follow",
                 toUserId = userId,
                 followingsCount = sourceProfile.Followings?.Count ?? 0
             };
@@ -236,6 +239,29 @@ namespace MiniconectSocial.Controllers.Users
             return Ok("Đã bỏ theo dõi người dùng.");
         }
 
+        [HttpGet("me/posts")]
+        public async Task<IActionResult> GetMyPosts()
+        {
+            var userId = GetCurrentUserId();
+            if (userId == null)
+            {
+                return Unauthorized("Không thể xác định người dùng.");
+            }
+            var posts = await _postService.GetByUserIdAsync(userId);
+            var result = posts.Select(posts => new PostDto
+            {
+                Id = posts.Id,
+                Content = posts.Content,
+                Imageurl = posts.Imageurl,
+                Createdat = posts.Createdat,
+                Authorid = posts.Authorid,
+                Authorname = posts.Author?.Username ?? "",
+                AuthorAvatar = posts.Author?.Profilepictureurl,
+                CommentCount = posts.Comments?.Count ?? 0,
+                likeCount = posts.Users?.Count ?? 0
+            }).ToList();
+
+            return Ok(result);
+        }
     }
 }
-

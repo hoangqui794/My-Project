@@ -7,18 +7,31 @@ import { useSignalR } from '../hooks/useSignalR';
 
 import EditProfile from '../components/user/EditProfile';
 import ChangePassword from '../components/user/ChangePassword';
-import { fetchUser } from '../services/userApi';
+import { fetchUser, fetchMyPosts } from '../services/userApi';
 
 
 const HUB_URL = (import.meta.env.VITE_API_BASE_URL || '') + '/hubs/userHub';
 
 import { useEffect } from 'react';
+import type { Post } from '../types/post.types';
+import PostItem from '../components/social/PostItem';
 
 const ProfilePage: React.FC = () => {
     const { user, setUser } = useUserStore();
     const [showEdit, setShowEdit] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [showChangePassword, setShowChangePassword] = useState(false);
+    const [myPosts, setMyPosts] = useState<Post[]>([]);
+    const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+
+    // Fetch my posts
+    useEffect(() => {
+        setIsLoadingPosts(true);
+        fetchMyPosts(0, 20)
+            .then(setMyPosts)
+            .catch(() => setMyPosts([]))
+            .finally(() => setIsLoadingPosts(false));
+    }, [user]);
 
     // Fetch user info on mount if not available
     useEffect(() => {
@@ -35,7 +48,7 @@ const ProfilePage: React.FC = () => {
         setUser({ ...newUser, postCount: newUser.postCount ?? 0 });
     };
 
-    // Listen for real-time profile updates
+    // Listen for real-time profile updates & post deleted
     useSignalR(HUB_URL, {
         ProfileUpdated: (updated: User) => {
             if (user && updated.id === user.id) {
@@ -46,6 +59,9 @@ const ProfilePage: React.FC = () => {
             if (user && payload.userId === user.id) {
                 setUser({ ...user, followerCount: payload.followerCount, followingCount: payload.followingCount });
             }
+        },
+        PostDeleted: (payload: { PostId: number }) => {
+            setMyPosts(prev => prev.filter(post => post.id !== String(payload.PostId)));
         },
     });
 
@@ -164,7 +180,26 @@ const ProfilePage: React.FC = () => {
 
                 <div className="bg-white rounded-lg shadow-md p-6">
                     <h2 className="text-xl font-bold text-gray-900 mb-4">Bài đăng của tôi</h2>
-                    <p className="text-gray-600">Chưa có bài đăng nào.</p>
+                    {isLoadingPosts ? (
+                        <div className="text-center py-8">
+                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 mx-auto"></div>
+                            <p className="mt-2 text-gray-600">Đang tải...</p>
+                        </div>
+                    ) : myPosts.length === 0 ? (
+                        <p className="text-gray-600">Chưa có bài đăng nào.</p>
+                    ) : (
+                        myPosts.map(post => (
+                            <PostItem
+                                key={post.id}
+                                post={post}
+                                onLike={() => { }}
+                                onComment={() => { }}
+                                onShare={() => { }}
+                                isOwner={user && post.authorId === user.id}
+                                onDelete={(postId) => setMyPosts(prev => prev.filter(p => p.id !== postId))}
+                            />
+                        ))
+                    )}
                 </div>
             </div>
         </div>

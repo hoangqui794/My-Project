@@ -608,6 +608,18 @@
           }
         }
       }
+    },
+    "/api/v1/users/me/posts": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {

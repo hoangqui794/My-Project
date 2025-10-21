@@ -1,3 +1,5 @@
+import type { Post } from '../types/post.types';
+
 import { apiClient } from "../utils/apiClient";
 import type { User } from "../types";
 
@@ -66,4 +68,28 @@ export const followUser = async (userId: string) => {
 export const unfollowUser = async (userId: string) => {
     const response = await apiClient.post(`/api/v1/users/${userId}/unfollow`);
     return response.data;
+};
+
+
+// Lấy bài đăng của user hiện tại
+export const fetchMyPosts = async (skip = 0, take = 20): Promise<Post[]> => {
+    const response = await apiClient.get('/api/v1/users/me/posts', {
+        params: { skip, take }
+    });
+    return response.data.map((post: any) => ({
+        id: post.id,
+        content: post.content,
+        imageUrl: post.imageurl ? `data:image/png;base64,${post.imageurl}` : undefined,
+        createdAt: post.createdat,
+        updatedAt: post.updatedat || post.createdat,
+        authorId: post.authorid,
+        author: {
+            id: post.authorid,
+            username: post.authorname,
+            avatar: post.authorAvatar ? `data:image/png;base64,${post.authorAvatar}` : undefined,
+        },
+        commentCount: post.commentCount,
+        likeCount: post.likeCount,
+        isLiked: post.isLiked ?? false,
+    }));
 };

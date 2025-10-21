@@ -1,53 +1,81 @@
 import React, { useState, useEffect } from 'react';
+import { useSignalR } from '../hooks/useSignalR';
+import { useUserStore } from '../store/userStore';
 import NavBar from '../components/layout/NavBar';
 import CreatePost from '../components/social/CreatePost';
 import PostItem from '../components/social/PostItem';
 import type { Post } from '../types';
+import { fetchPosts } from '../services/postApi';
 
 const HomePage: React.FC = () => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Mock data - replace with actual API calls
+    // Gọi API lấy danh sách bài viết
     useEffect(() => {
-        const mockPosts: Post[] = [
-            {
-                id: '1',
-                content: 'Chào mọi người! Đây là bài đăng đầu tiên của tôi trên MiniConnect.',
-                authorId: '1',
-                author: {
-                    id: '1',
-                    username: 'user1',
-                    avatar: undefined,
-                },
-                likeCount: 5,
-                commentCount: 2,
-                isLiked: false,
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-            },
-            {
-                id: '2',
-                content: 'Hôm nay thời tiết thật đẹp! 🌞',
-                authorId: '2',
-                author: {
-                    id: '2',
-                    username: 'user2',
-                    avatar: undefined,
-                },
-                likeCount: 12,
-                commentCount: 4,
-                isLiked: true,
-                createdAt: new Date(Date.now() - 3600000).toISOString(),
-                updatedAt: new Date(Date.now() - 3600000).toISOString(),
-            },
-        ];
-
-        setTimeout(() => {
-            setPosts(mockPosts);
-            setIsLoading(false);
-        }, 1000);
+        setIsLoading(true);
+        fetchPosts(0, 20)
+            .then((data) => setPosts(data))
+            .catch(() => setPosts([]))
+            .finally(() => setIsLoading(false));
     }, []);
+
+    // Lắng nghe sự kiện xóa bài viết qua SignalR
+    useSignalR((import.meta.env.VITE_API_BASE_URL || '') + '/hubs/postHub', {
+        NewPost: (post: any) => {
+            setPosts(prev => [
+                {
+                    id: post.Id,
+                    content: post.Content,
+                    imageUrl: post.Imageurl ? `data:image/png;base64,${post.Imageurl}` : undefined,
+                    createdAt: post.Createdat,
+                    updatedAt: post.Createdat,
+                    authorId: post.Authorid,
+                    author: {
+                        id: post.Authorid,
+                        username: post.Authorname,
+                        avatar: post.AuthorAvatar ? `data:image/png;base64,${post.AuthorAvatar}` : undefined,
+                    },
+                    commentCount: post.CommentCount,
+                    likeCount: post.likeCount,
+                    isLiked: false,
+                },
+                ...prev
+            ]);
+        },
+        PostDeleted: (payload: { PostId: number }) => {
+            console.log('SignalR PostDeleted event received:', payload);
+            setPosts(prev => prev.filter(post => post.id !== String(payload.PostId)));
+        },
+        PostLiked: (payload: { PostId: number; UserId: string }) => {
+            setPosts(prev => prev.map(post =>
+                post.id === String(payload.PostId)
+                    ? { ...post, likeCount: post.likeCount + 1 }
+                    : post
+            ));
+        },
+        PostUnliked: (payload: { PostId: number; UserId: string }) => {
+            setPosts(prev => prev.map(post =>
+                post.id === String(payload.PostId)
+                    ? { ...post, likeCount: Math.max(0, post.likeCount - 1) }
+                    : post
+            ));
+        },
+        NewComment: (payload: { PostId: number }) => {
+            setPosts(prev => prev.map(post =>
+                post.id === String(payload.PostId)
+                    ? { ...post, commentCount: post.commentCount + 1 }
+                    : post
+            ));
+        },
+        CommentDeleted: (payload: { PostId: number }) => {
+            setPosts(prev => prev.map(post =>
+                post.id === String(payload.PostId)
+                    ? { ...post, commentCount: Math.max(0, post.commentCount - 1) }
+                    : post
+            ));
+        },
+    });
 
     const handleCreatePost = async (content: string, imageUrl?: string) => {
         // TODO: Replace with actual API call
@@ -98,6 +126,7 @@ const HomePage: React.FC = () => {
         console.log('Share post:', postId);
     };
 
+    const { user } = useUserStore();
     return (
         <div className="min-h-screen bg-gray-100">
             <NavBar />
@@ -123,6 +152,7 @@ const HomePage: React.FC = () => {
                                     onLike={handleLike}
                                     onComment={handleComment}
                                     onShare={handleShare}
+                                    isOwner={!!user && post.authorId === user?.id}
                                 />
                             ))
                         )}

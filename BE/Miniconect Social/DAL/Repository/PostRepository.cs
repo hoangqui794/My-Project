@@ -1,5 +1,4 @@
-﻿
-namespace DAL.Repository
+﻿namespace DAL.Repository
 {
     public class PostRepository : IPostRepository
     {
@@ -9,19 +8,21 @@ namespace DAL.Repository
         {
             _context = context;
         }
+
         public async Task<Post> CreateAsync(Post post)
         {
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
             return post;
-        
         }
+
         public async Task<Post> UpdateAsync(Post post)
         {
             _context.Posts.Update(post);
             await _context.SaveChangesAsync();
             return post;
         }
+
         public async Task<bool> DeleteAsync(int postId, string userId)
         {
             var post = _context.Posts.FirstOrDefault(p => p.Id == postId && p.Authorid == userId);
@@ -61,13 +62,12 @@ namespace DAL.Repository
             var post = await _context.Posts.Include(p => p.Users).FirstOrDefaultAsync(p => p.Id == postId);
             var user = await _context.Users.FindAsync(userId);
             if (post == null || user == null) return false;
-            if(post.Users.Any(u => u.Id == userId)) return false;// Already liked
+            if (post.Users.Any(u => u.Id == userId)) return false;// Already liked
 
             post.Users.Add(user);
             await _context.SaveChangesAsync();
             return true;
         }
-
 
         public async Task<bool> UnlikePostAsync(int postId, string userId)
         {
@@ -92,10 +92,10 @@ namespace DAL.Repository
 
         public async Task<Comment> AddCommentAsync(int postId, string userId, string content)
         {
-           var post = await _context.Posts.FindAsync(postId);
+            var post = await _context.Posts.FindAsync(postId);
             var user = await _context.Users.FindAsync(userId);
 
-            if(post == null || user == null) return null;
+            if (post == null || user == null) return null;
 
             var comment = new Comment
             {
@@ -107,16 +107,15 @@ namespace DAL.Repository
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
             return comment;
-
         }
 
         public async Task<bool> DeleteCommentAsync(int postId, int commentId, string userId)
         {
             var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == commentId && c.Postid == postId);
-            if(comment == null) return false;
+            if (comment == null) return false;
 
             var post = await _context.Posts.FindAsync(postId);
-            if(comment.Authorid != userId &&(post == null || post.Authorid != userId)) return false;
+            if (comment.Authorid != userId && (post == null || post.Authorid != userId)) return false;
 
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();

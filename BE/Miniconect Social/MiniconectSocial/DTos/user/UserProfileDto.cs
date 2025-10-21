@@ -10,12 +10,16 @@
 
         public DateTime CreatedAt { get; set; }
 
-
         // Thêm flow
         public int FollowersCount { get; set; }
+
         public int FollowingsCount { get; set; }
+
+        public int PostCount { get; set; }
+
         // Nếu muốn trả về danh sách Id
         public List<string>? FollowerIds { get; set; }
+
         public List<string>? FollowingIds { get; set; }
     }
 }
