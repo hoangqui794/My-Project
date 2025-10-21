@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MiniconectSocial")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+88892086b29c38d0c96aa47132f36e93f15ecb9e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e06f7ba78b216c2b15de9bd95d89a0fc0f08205")]
 [assembly: System.Reflection.AssemblyProductAttribute("MiniconectSocial")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MiniconectSocial")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

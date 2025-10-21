@@ -3,6 +3,6 @@
     public class CreatePostDto
     {
         public string Content { get; set; }
-        public string? Imageurl { get; set; }
+        //public string? Imageurl { get; set; }
     }
 }

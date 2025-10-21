@@ -6,10 +6,12 @@ builder.Services.AddDbContext<MiniconnectDbContext>(
 
 // Đăng ký repository và service
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped < IPostRepository, PostRepository()>;
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IPostService, PostService>();
 
 
 // THÊM DÒNG NÀY VÀO ĐÂY
@@ -118,7 +120,7 @@ app.UseMiddleware<MiniconectSocial.Middlewares.TokenBlacklistMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<MiniconectSocial.Hubs.FollowHub>("/hubs/followHub");
+app.MapHub<MiniconectSocial.Hubs.PostHub>("/hubs/postHub");
 app.MapHub<MiniconectSocial.Hubs.UserHub>("/hubs/userHub");
 
 app.Run();
