@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { fetchUser } from '../services/userApi';
 import { useSignalR } from '../hooks/useSignalR';
 import { useUserStore } from '../store/userStore';
 import NavBar from '../components/layout/NavBar';
@@ -8,6 +9,10 @@ import type { Post } from '../types';
 import { fetchPosts } from '../services/postApi';
 
 const HomePage: React.FC = () => {
+    // Hàm xóa bài viết và cập nhật state trực tiếp
+    const handleDeletePost = (postId: string) => {
+        setPosts(prev => prev.filter(post => String(post.id) !== String(postId)));
+    };
     const [posts, setPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -23,29 +28,29 @@ const HomePage: React.FC = () => {
     // Lắng nghe sự kiện xóa bài viết qua SignalR
     useSignalR((import.meta.env.VITE_API_BASE_URL || '') + '/hubs/postHub', {
         NewPost: (post: any) => {
+            console.log('SignalR NewPost event received:', post);
             setPosts(prev => [
                 {
-                    id: post.Id,
-                    content: post.Content,
-                    imageUrl: post.Imageurl ? `data:image/png;base64,${post.Imageurl}` : undefined,
-                    createdAt: post.Createdat,
-                    updatedAt: post.Createdat,
-                    authorId: post.Authorid,
+                    id: post.id,
+                    content: post.content,
+                    imageUrl: post.imageurl ? `data:image/png;base64,${post.imageurl}` : undefined,
+                    createdAt: post.createdat,
+                    updatedAt: post.createdat,
+                    authorId: post.authorid,
                     author: {
-                        id: post.Authorid,
-                        username: post.Authorname,
-                        avatar: post.AuthorAvatar ? `data:image/png;base64,${post.AuthorAvatar}` : undefined,
+                        id: post.authorid,
+                        username: post.authorname,
+                        avatar: post.authorAvatar ? `data:image/png;base64,${post.authorAvatar}` : undefined,
                     },
-                    commentCount: post.CommentCount,
+                    commentCount: post.commentCount,
                     likeCount: post.likeCount,
                     isLiked: false,
                 },
                 ...prev
             ]);
         },
-        PostDeleted: (payload: { PostId: number }) => {
-            console.log('SignalR PostDeleted event received:', payload);
-            setPosts(prev => prev.filter(post => post.id !== String(payload.PostId)));
+        PostDeleted: (payload: { postId: number }) => {
+            setPosts(prev => prev.filter(post => String(post.id) !== String(payload.postId)));
         },
         PostLiked: (payload: { PostId: number; UserId: string }) => {
             setPosts(prev => prev.map(post =>
@@ -77,26 +82,19 @@ const HomePage: React.FC = () => {
         },
     });
 
-    const handleCreatePost = async (content: string, imageUrl?: string) => {
-        // TODO: Replace with actual API call
-        const newPost: Post = {
-            id: Date.now().toString(),
-            content,
-            imageUrl,
-            authorId: 'current-user',
-            author: {
-                id: 'current-user',
-                username: 'Bạn',
-                avatar: undefined,
-            },
-            likeCount: 0,
-            commentCount: 0,
-            isLiked: false,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-        };
-
-        setPosts(prev => [newPost, ...prev]);
+    const handleCreatePost = async (content: string, imageFile?: File | null) => {
+        setIsLoading(true);
+        try {
+            // Tạo bài viết mới
+            await import('../services/postApi').then(({ createPost }) => createPost({ content, imageFile }));
+            // Sau khi tạo xong, fetch lại danh sách bài viết
+            const data = await fetchPosts(0, 20);
+            setPosts(data);
+        } catch (err) {
+            // Có thể show thông báo lỗi
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleLike = async (postId: string) => {
@@ -126,7 +124,16 @@ const HomePage: React.FC = () => {
         console.log('Share post:', postId);
     };
 
-    const { user } = useUserStore();
+    const { user, setUser } = useUserStore();
+
+    // Khi app khởi động, nếu có token mà user chưa có thì fetch lại user từ API
+    useEffect(() => {
+        const authStore = JSON.parse(localStorage.getItem('auth-storage') || '{}');
+        const token = authStore.state?.token;
+        if (token && !user) {
+            fetchUser().then(setUser).catch(() => { });
+        }
+    }, [user, setUser]);
     return (
         <div className="min-h-screen bg-gray-100">
             <NavBar />
@@ -147,11 +154,20 @@ const HomePage: React.FC = () => {
                         ) : (
                             posts.map(post => (
                                 <PostItem
-                                    key={post.id}
-                                    post={post}
+                                    key={String(post.id) || Math.random().toString(36)}
+                                    post={{
+                                        ...post,
+                                        id: String(post.id),
+                                        author: {
+                                            id: post.author?.id || post.authorId || '',
+                                            username: post.author?.username || 'Ẩn danh',
+                                            avatar: post.author?.avatar || undefined,
+                                        }
+                                    }}
                                     onLike={handleLike}
                                     onComment={handleComment}
                                     onShare={handleShare}
+                                    onDelete={handleDeletePost}
                                     isOwner={!!user && post.authorId === user?.id}
                                 />
                             ))

@@ -27,7 +27,15 @@ export const fetchPosts = async (skip = 0, take = 20): Promise<Post[]> => {
 
 // Đăng bài mới
 export const createPost = async (data: CreatePostRequest): Promise<Post> => {
-    const response = await apiClient.post('/api/v1/posts', data);
+    const formData = new FormData();
+    formData.append('content', data.content);
+    if (data.imageFile) {
+        formData.append('imageFile', data.imageFile);
+    }
+
+    const response = await apiClient.post('/api/v1/posts', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    });
     return response.data;
 };
 

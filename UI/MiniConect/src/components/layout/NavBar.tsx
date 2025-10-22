@@ -95,7 +95,7 @@ const NavBar: React.FC = () => {
                     </div>
                 </div>
                 {/* Clear Data Button - For debugging */}
-                <div className="mt-4">
+                {/* <div className="mt-4">
                     <button
                         onClick={() => {
                             localStorage.removeItem('auth-storage');
@@ -105,8 +105,7 @@ const NavBar: React.FC = () => {
                     >
                         Xóa dữ liệu
                     </button>
-                </div>
-
+                </div> */}
             </div>
         </nav>
     );

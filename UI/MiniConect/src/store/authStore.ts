@@ -36,8 +36,9 @@ export const useAuthStore = create<AuthState>()(
                         isAuthenticated: true,
                         isLoading: false,
                     });
-                    // Đồng bộ user vào userStore để NavBar luôn hiển thị tên user
-                    useUserStore.getState().setUser(data.user);
+                    // Gọi thêm API /api/v1/users/me để lấy thông tin user đầy đủ
+                    const fullUser = await import('../services/userApi').then(m => m.fetchUser());
+                    useUserStore.getState().setUser(fullUser);
                 } catch (error) {
                     set({ isLoading: false });
                     throw error;

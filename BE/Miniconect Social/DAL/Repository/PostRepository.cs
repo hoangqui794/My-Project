@@ -34,7 +34,11 @@
 
         public async Task<Post> GetByIdAsync(int postId)
         {
-            return await _context.Posts.Include(p => p.Author).Include(p => p.Users).FirstOrDefaultAsync(p => p.Id == postId);
+            return await _context.Posts
+                .Include(p => p.Author)
+                .Include(p => p.Users)
+                .Include(p => p.Comments)
+                .FirstOrDefaultAsync(p => p.Id == postId);
         }
 
         public async Task<List<Post>> GetByUserIdAsync(string userId)

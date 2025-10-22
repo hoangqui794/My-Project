@@ -30,7 +30,7 @@ export interface Comment {
 
 export interface CreatePostRequest {
     content: string;
-    imageUrl?: string;
+    imageFile?: File | null;
 }
 
 export interface CreateCommentRequest {

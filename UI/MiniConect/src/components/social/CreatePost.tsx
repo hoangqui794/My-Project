@@ -1,12 +1,13 @@
+
 import React, { useState } from 'react';
 
 interface CreatePostProps {
-    onCreatePost: (content: string, imageUrl?: string) => void;
+    onCreatePost: (content: string, imageFile?: File | null) => Promise<void>;
 }
 
 const CreatePost: React.FC<CreatePostProps> = ({ onCreatePost }) => {
     const [content, setContent] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageFile, setImageFile] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -15,9 +16,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ onCreatePost }) => {
 
         setIsLoading(true);
         try {
-            await onCreatePost(content, imageUrl || undefined);
+            await onCreatePost(content, imageFile);
             setContent('');
-            setImageUrl('');
+            setImageFile(null);
         } finally {
             setIsLoading(false);
         }
@@ -39,18 +40,17 @@ const CreatePost: React.FC<CreatePostProps> = ({ onCreatePost }) => {
 
                 <div className="mb-4">
                     <input
-                        type="url"
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
-                        placeholder="URL hình ảnh (tùy chọn)"
+                        type="file"
+                        accept="image/*"
+                        onChange={e => setImageFile(e.target.files?.[0] || null)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 
-                {imageUrl && (
+                {imageFile && (
                     <div className="mb-4">
                         <img
-                            src={imageUrl}
+                            src={URL.createObjectURL(imageFile)}
                             alt="Preview"
                             className="max-w-full h-48 object-cover rounded-md"
                             onError={(e) => {

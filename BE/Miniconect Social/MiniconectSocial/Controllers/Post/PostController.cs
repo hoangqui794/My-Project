@@ -205,7 +205,7 @@ namespace MiniconectSocial.Controllers.Post
             }
             await _hubContext.Clients.All.SendAsync("PostDeleted", new
             {
-                PostId = postId
+                postId
             });
 
             return NoContent();
