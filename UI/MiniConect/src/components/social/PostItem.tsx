@@ -19,7 +19,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare, o
     const [showConfirm, setShowConfirm] = useState(false);
 
     const handleLike = () => {
-        onLike(post.id);
+        if (onLike) onLike(post.id);
     };
 
     const handleComment = (e: React.FormEvent) => {
@@ -142,12 +142,13 @@ const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare, o
                 <div className="flex space-x-4">
                     <button
                         onClick={handleLike}
-                        className={`flex items-center space-x-1 px-3 py-1 rounded ${post.isLiked
-                            ? 'bg-red-100 text-red-600'
+                        className={`flex items-center space-x-1 px-3 py-1 rounded transition-all duration-150 focus:outline-none ${post.isLiked
+                            ? 'bg-red-100 text-red-600 font-bold'
                             : 'hover:bg-gray-100 text-gray-600'
                             }`}
+                        aria-label={post.isLiked ? 'Bỏ thích' : 'Thích'}
                     >
-                        <span>{post.isLiked ? '❤️' : '🤍'}</span>
+                        <span className="text-lg">{post.isLiked ? '❤️' : '🤍'}</span>
                         <span>{post.likeCount}</span>
                     </button>
 

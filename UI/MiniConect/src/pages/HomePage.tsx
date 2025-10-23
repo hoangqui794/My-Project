@@ -50,32 +50,47 @@ const HomePage: React.FC = () => {
             ]);
         },
         PostDeleted: (payload: { postId: number }) => {
-            setPosts(prev => prev.filter(post => String(post.id) !== String(payload.postId)));
+            setPosts(prev => prev.filter(post => Number(post.id) !== payload.postId));
         },
-        PostLiked: (payload: { PostId: number; UserId: string }) => {
-            setPosts(prev => prev.map(post =>
-                post.id === String(payload.PostId)
-                    ? { ...post, likeCount: post.likeCount + 1 }
-                    : post
-            ));
+        PostLiked: (payload: { postId: number; userId: string }) => {
+            console.log('BUG: Nhận sự kiện PostLiked:', payload);
+            // Chỉ cập nhật likeCount nếu userId khác user hiện tại
+            if (!user || payload.userId !== user.id) {
+                setPosts(prev => {
+                    const newPosts = prev.map(post =>
+                        Number(post.id) === payload.postId
+                            ? { ...post, likeCount: post.likeCount + 1 }
+                            : post
+                    );
+                    console.log('BUG: State sau khi cập nhật like:', newPosts);
+                    return newPosts;
+                });
+            }
         },
-        PostUnliked: (payload: { PostId: number; UserId: string }) => {
-            setPosts(prev => prev.map(post =>
-                post.id === String(payload.PostId)
-                    ? { ...post, likeCount: Math.max(0, post.likeCount - 1) }
-                    : post
-            ));
+        PostUnliked: (payload: { postId: number; userId: string }) => {
+            console.log('BUG: Nhận sự kiện PostUnliked:', payload);
+            if (!user || payload.userId !== user.id) {
+                setPosts(prev => {
+                    const newPosts = prev.map(post =>
+                        Number(post.id) === payload.postId
+                            ? { ...post, likeCount: Math.max(0, post.likeCount - 1) }
+                            : post
+                    );
+                    console.log('BUG: State sau khi cập nhật unlike:', newPosts);
+                    return newPosts;
+                });
+            }
         },
-        NewComment: (payload: { PostId: number }) => {
+        NewComment: (payload: { postId: number }) => {
             setPosts(prev => prev.map(post =>
-                post.id === String(payload.PostId)
+                Number(post.id) === payload.postId
                     ? { ...post, commentCount: post.commentCount + 1 }
                     : post
             ));
         },
-        CommentDeleted: (payload: { PostId: number }) => {
+        CommentDeleted: (payload: { postId: number }) => {
             setPosts(prev => prev.map(post =>
-                post.id === String(payload.PostId)
+                Number(post.id) === payload.postId
                     ? { ...post, commentCount: Math.max(0, post.commentCount - 1) }
                     : post
             ));
@@ -103,10 +118,21 @@ const HomePage: React.FC = () => {
                 ? {
                     ...post,
                     isLiked: !post.isLiked,
-                    likeCount: post.isLiked ? post.likeCount - 1 : post.likeCount + 1
+                    likeCount: post.isLiked ? Math.max(0, post.likeCount - 1) : post.likeCount + 1
                 }
                 : post
         ));
+        try {
+            const { likePost, unlikePost } = await import('../services/postApi');
+            const post = posts.find(p => p.id === postId);
+            if (post?.isLiked) {
+                await unlikePost(postId);
+            } else {
+                await likePost(postId);
+            }
+        } catch (err) {
+            // Có thể show thông báo lỗi
+        }
     };
 
     const handleComment = async (postId: string, content: string) => {
@@ -155,15 +181,7 @@ const HomePage: React.FC = () => {
                             posts.map(post => (
                                 <PostItem
                                     key={String(post.id) || Math.random().toString(36)}
-                                    post={{
-                                        ...post,
-                                        id: String(post.id),
-                                        author: {
-                                            id: post.author?.id || post.authorId || '',
-                                            username: post.author?.username || 'Ẩn danh',
-                                            avatar: post.author?.avatar || undefined,
-                                        }
-                                    }}
+                                    post={post}
                                     onLike={handleLike}
                                     onComment={handleComment}
                                     onShare={handleShare}
