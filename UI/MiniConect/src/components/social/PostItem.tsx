@@ -8,10 +8,11 @@ interface PostItemProps {
     onShare: (postId: string) => void;
     onDelete?: (postId: string) => void;
     isOwner?: boolean;
+    onCommentIconClick?: () => void;
 }
 
 import { deletePost } from '../../services/postApi';
-const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare, onDelete, isOwner }) => {
+const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare, onDelete, isOwner, onCommentIconClick }) => {
     const [showComments, setShowComments] = useState(false);
     const [commentText, setCommentText] = useState('');
     const [showMenu, setShowMenu] = useState(false);
@@ -153,7 +154,13 @@ const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare, o
                     </button>
 
                     <button
-                        onClick={() => setShowComments(!showComments)}
+                        onClick={() => {
+                            if (onCommentIconClick) {
+                                onCommentIconClick();
+                            } else {
+                                setShowComments(!showComments);
+                            }
+                        }}
                         className="flex items-center space-x-1 px-3 py-1 rounded hover:bg-gray-100 text-gray-600"
                     >
                         <span>💬</span>

@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "D:\\DOC\\My Project\\BE\\Miniconect Social\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\irepository\\ipostrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\irepository\\ipostrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\data\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\data\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\controllers\\post\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\controllers\\post\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5875EBB1-01BE-2D17-3613-D0BAD09CBB40}|BLL\\BLL.csproj|d:\\doc\\my project\\be\\miniconect social\\bll\\services\\postservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5875EBB1-01BE-2D17-3613-D0BAD09CBB40}|BLL\\BLL.csproj|solutionrelative:bll\\services\\postservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,85 +26,57 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Post.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Data\\Post.cs",
-              "RelativeDocumentMoniker": "DAL\\Data\\Post.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Data\\Post.cs",
-              "RelativeToolTip": "DAL\\Data\\Post.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAwAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Program.cs",
+              "RelativeDocumentMoniker": "MiniconectSocial\\Program.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Program.cs",
+              "RelativeToolTip": "MiniconectSocial\\Program.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T03:20:27.474Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\UserRepository.cs",
-              "RelativeDocumentMoniker": "DAL\\Repository\\UserRepository.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\UserRepository.cs",
-              "RelativeToolTip": "DAL\\Repository\\UserRepository.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAswB0AAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T03:13:36.505Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PostService.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\Services\\PostService.cs",
-              "RelativeDocumentMoniker": "BLL\\Services\\PostService.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\Services\\PostService.cs",
-              "RelativeToolTip": "BLL\\Services\\PostService.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAYwC4AAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T03:11:58.36Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Post\\PostController.cs",
-              "RelativeDocumentMoniker": "MiniconectSocial\\Controllers\\Post\\PostController.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Post\\PostController.cs",
-              "RelativeToolTip": "MiniconectSocial\\Controllers\\Post\\PostController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAQwCUAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T03:11:32.682Z",
+              "WhenOpened": "2025-10-24T10:40:02.078Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "PostController.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Post\\PostController.cs",
+              "RelativeDocumentMoniker": "MiniconectSocial\\Controllers\\Post\\PostController.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Post\\PostController.cs",
+              "RelativeToolTip": "MiniconectSocial\\Controllers\\Post\\PostController.cs",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAjwK8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T09:29:23.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PostService.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\Services\\PostService.cs",
+              "RelativeDocumentMoniker": "BLL\\Services\\PostService.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\Services\\PostService.cs",
+              "RelativeToolTip": "BLL\\Services\\PostService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T09:29:16.947Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "PostRepository.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\PostRepository.cs",
               "RelativeDocumentMoniker": "DAL\\Repository\\PostRepository.cs",
               "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\PostRepository.cs",
               "RelativeToolTip": "DAL\\Repository\\PostRepository.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAkwDsAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-21T08:59:18.736Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IPostRepository.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\IRepository\\IPostRepository.cs",
-              "RelativeDocumentMoniker": "DAL\\IRepository\\IPostRepository.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\IRepository\\IPostRepository.cs",
-              "RelativeToolTip": "DAL\\IRepository\\IPostRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T02:50:56.053Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-24T09:29:05.328Z"
             }
           ]
         }

@@ -60,7 +60,7 @@ namespace MiniconectSocial.Controllers.Post
                 Authorid = post.Authorid,
                 Authorname = post.Author.Username,
                 AuthorAvatar = post.Author!.Profilepictureurl,
-                CommentCount = post.Comments?.Count ?? 0,
+                CommentCount = post.Users?.Count ?? 0,
                 likeCount = post.Users?.Count ?? 0
             };
             return Ok(result);
@@ -141,7 +141,9 @@ namespace MiniconectSocial.Controllers.Post
                 PostId = c.Postid,
                 AuthorId = c.Authorid,
                 Content = c.Content,
-                Createdat = c.Createdat
+                Createdat = c.Createdat,
+                AuthorName = c.Author!.Username,
+                AuthorAvatar = c.Author!.Profilepictureurl
             }).ToList();
 
             return Ok(result);
@@ -153,7 +155,13 @@ namespace MiniconectSocial.Controllers.Post
         public async Task<ActionResult<CommentDto>> AddComment(int postId, [FromBody] CreateCommentDto dto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized("Không tìm thấy người dùng");
+
             var comment = await _postService.AddCommentAsync(postId, userId, dto.content);
+            if (comment == null)
+                return BadRequest("Không thể thêm bình luận");
+
             var result = new CommentDto
             {
                 Id = comment.Id,
@@ -161,23 +169,11 @@ namespace MiniconectSocial.Controllers.Post
                 AuthorId = comment.Authorid,
                 Content = comment.Content,
                 Createdat = comment.Createdat,
-                AuthorName = comment.Author!.Username,
-                AuthorAvatar = comment.Author!.Profilepictureurl
+                AuthorName = comment.Author?.Username ?? "",
+                AuthorAvatar = comment.Author?.Profilepictureurl
             };
-            var post = await _postService.GetPostByIdAsync(postId);
-            if (post != null)
-            {
-                await _hubContext.Clients.All.SendAsync("NewComment", new
-                {
-                    PostId = postId,
-                    CommentId = comment.Id,
-                    AuthorId = comment.Authorid,
-                    Content = comment.Content,
-                    Createdat = comment.Createdat,
-                    AuthorName = comment.Author!.Username,
-                    AuthorAvatar = comment.Author!.Profilepictureurl
-                });
-            }
+            await _hubContext.Clients.All.SendAsync("NewComment", result);
+
             return Ok(result);
         }
 
