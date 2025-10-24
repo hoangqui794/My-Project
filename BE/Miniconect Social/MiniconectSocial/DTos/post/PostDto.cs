@@ -2,7 +2,7 @@
 {
     public class PostDto
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string Content { get; set; }
         public string? Imageurl { get; set; }
 
@@ -14,5 +14,6 @@
 
         public int CommentCount { get; set; }
         public int likeCount { get; set; }
+        public bool isLiked { get; set; }
     }
 }

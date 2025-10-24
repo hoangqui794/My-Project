@@ -34,7 +34,7 @@
 
         public async Task<Post> GetByIdAsync(int postId)
         {
-            return await _context.Posts
+            return await _context.Posts.AsNoTracking()
                 .Include(p => p.Author)
                 .Include(p => p.Users)
                 .Include(p => p.Comments)
@@ -43,8 +43,10 @@
 
         public async Task<List<Post>> GetByUserIdAsync(string userId)
         {
-            return await _context.Posts
+            return await _context.Posts.AsNoTracking()
                 .Include(p => p.Author)
+                .Include(u => u.Users)
+                .Include(p => p.Comments)
                 .Where(p => p.Authorid == userId)
                 .OrderByDescending(p => p.Createdat)
                 .ToListAsync();
@@ -55,6 +57,7 @@
             return await _context.Posts
                   .Include(p => p.Author)
                   .Include(p => p.Users)
+                    .Include(p => p.Comments)
                   .OrderByDescending(p => p.Createdat)
                   .Skip(skip)
                   .Take(take)

@@ -226,6 +226,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MiniconectSocial.Controllers.Post.PostController",
+    "Method": "GetMyPosts",
+    "RelativePath": "api/v1/posts/myposts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MiniconectSocial.Controllers.Auth.AuthController",
     "Method": "Register",
     "RelativePath": "api/v1/register",

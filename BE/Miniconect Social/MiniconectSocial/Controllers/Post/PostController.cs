@@ -1,4 +1,5 @@
 ﻿using MiniconectSocial.DTos.post;
+using System.Windows.Markup;
 
 namespace MiniconectSocial.Controllers.Post
 {
@@ -23,6 +24,7 @@ namespace MiniconectSocial.Controllers.Post
         [HttpGet()]
         public async Task<IActionResult> GetPost([FromQuery] int skip = 0, [FromQuery] int take = 20)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var posts = await _postService.GetFeedAsync(skip, take);
             var result = posts.Select(post => new PostDto
             {
@@ -34,7 +36,8 @@ namespace MiniconectSocial.Controllers.Post
                 Authorname = post.Author!.Username,
                 AuthorAvatar = post.Author!.Profilepictureurl,
                 CommentCount = post.Comments?.Count ?? 0,
-                likeCount = post.Users?.Count ?? 0
+                likeCount = post.Users?.Count ?? 0,
+                isLiked = post.Users?.Any(u => u.Id == userId) ?? false
             }).ToList();
             return Ok(result);
         }
@@ -210,5 +213,37 @@ namespace MiniconectSocial.Controllers.Post
 
             return NoContent();
         }
+
+        [Authorize]
+        [HttpGet("myposts")]
+        public async Task<IActionResult> GetMyPosts()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var posts = await _postService.GetByUserIdAsync(userId);
+            var result = posts.Select(post => new PostDto
+            {
+                Id = post.Id,
+                Content = post.Content,
+                Imageurl = post.Imageurl,
+                Createdat = post.Createdat,
+                Authorid = post.Authorid,
+                Authorname = post.Author!.Username,
+                AuthorAvatar = post.Author!.Profilepictureurl,
+                CommentCount = post.Comments?.Count ?? 0,
+                likeCount = post.Users?.Count ?? 0,
+                isLiked = post.Users?.Any(u => u.Id == userId) ?? false
+            }).ToList();
+            return Ok(result);
+        }
+
+        //[Authorize]
+        //[HttpGet("{postId}/isliked")]
+        //public async Task<IActionResult> IsPostLiked(int postId)
+        //{
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var post = await _postService.GetPostByIdAsync(postId);
+        //    var isLiked = post.Users.Any(u => u.Id == userId);
+        //    return Ok(new { IsLiked = isLiked });
+        //}
     }
 }

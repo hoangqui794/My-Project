@@ -27,6 +27,7 @@
                 Include(u => u.Followers).
                 Include(u => u.Followings).
                 Include(u => u.PostsNavigation)
+                .Include(u => u.Comments)
                 .FirstOrDefaultAsync(i => i.Id == id);
         }
 
@@ -60,6 +61,7 @@
             existingUser.Username = user.Username;
             existingUser.Bio = user.Bio;
             existingUser.Profilepictureurl = user.Profilepictureurl;
+            existingUser.Passwordhash = user.Passwordhash;
             return await SaveChangesAsync() > 0;
         }
 

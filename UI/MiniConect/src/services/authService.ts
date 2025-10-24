@@ -41,6 +41,15 @@ export const authService = {
     },
 
     resetPassword: async (token: string, newPassword: string): Promise<void> => {
-        await apiClient.post('/api/v1/reset-password', { token, newPassword });
+        try {
+            await apiClient.post('/api/v1/reset-password', { token, newPassword });
+        } catch (err: any) {
+            if (err.response) {
+                console.error('Reset password error:', err.response.status, err.response.data);
+            } else {
+                console.error('Reset password error:', err);
+            }
+            throw err;
+        }
     },
 };

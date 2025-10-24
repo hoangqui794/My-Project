@@ -258,7 +258,8 @@ namespace MiniconectSocial.Controllers.Users
                 Authorname = posts.Author?.Username ?? "",
                 AuthorAvatar = posts.Author?.Profilepictureurl,
                 CommentCount = posts.Comments?.Count ?? 0,
-                likeCount = posts.Users?.Count ?? 0
+                likeCount = posts.Users?.Count ?? 0,
+                isLiked = posts.Users?.Any(u => u.Id == userId) ?? false
             }).ToList();
 
             return Ok(result);

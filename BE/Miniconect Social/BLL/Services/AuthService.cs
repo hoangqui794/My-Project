@@ -1,23 +1,23 @@
-﻿
-namespace BLL.Services
+﻿namespace BLL.Services
 {
     public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
         private readonly IMemoryCache _memoryCache;
-        public AuthService(IUserRepository userRepository , IConfiguration configuration, IMemoryCache cache)
+
+        public AuthService(IUserRepository userRepository, IConfiguration configuration, IMemoryCache cache)
         {
             _userRepository = userRepository;
             _configuration = configuration;
             _memoryCache = cache;
         }
-   
 
         public async Task<User> AuthenticateAsync(string email, string password)
         {
             var user = await _userRepository.GetByEmailAsync(email);
-            if (user == null) {
+            if (user == null)
+            {
                 return null;
             }
             var hash = HashPassword(password);
@@ -25,7 +25,7 @@ namespace BLL.Services
             {
                 return null;
             }
-            return user;    
+            return user;
         }
 
         public Task BlacklistTokenAsync(string jti)
@@ -82,7 +82,7 @@ namespace BLL.Services
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
                     issuer: issuer,
-                    audience : audience,
+                    audience: audience,
                     claims: claims,
                     expires: DateTime.UtcNow.AddMinutes(15),
                     signingCredentials: creds
@@ -93,7 +93,7 @@ namespace BLL.Services
             var subject = "Đặt lại mật khẩu Miniconect Social";
             var htmlContent = $@"
                 <p>Nhấn vào nút sau để đặt lại mật khẩu:</p>
-                <a href='{resetLink}' 
+                <a href='{resetLink}'
                    style='display:inline-block;padding:10px 20px;background:#1976d2;color:#fff;text-decoration:none;border-radius:4px;font-weight:bold;'>
                     <span style='color:#fff;'>Thay đổi mật khẩu</span>
                 </a>";
@@ -137,26 +137,38 @@ namespace BLL.Services
                 var issuer = _configuration["Jwt:Issuer"];
                 var audience = _configuration["Jwt:Audience"];
                 Console.WriteLine($"SecretKey: {secretKey}, Issuer: {issuer}, Audience: {audience}");
+                // In ra thời gian hiện tại UTC
+                Console.WriteLine($"[LOG] DateTime.UtcNow: {DateTime.UtcNow}");
                 var principal = handel.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    ValidIssuer= issuer,
-                    ValidAudience= audience,
+                    ValidIssuer = issuer,
+                    ValidAudience = audience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 }, out var validatedToken);
+                //IN ra thời gian hết hạn của token
+                if (validatedToken is JwtSecurityToken jwtToken)
+                {
+                    Console.WriteLine($"[LOG] Token Expiration: {jwtToken.ValidTo} (UTC)");
+                }
 
                 var userId = principal.FindFirst("UserId")?.Value;
+                Console.WriteLine($"[LOG] UserId from token: {userId}");
                 var user = await _userRepository.GetByIdAsync(userId);
-                if (user == null) {
+                if (user == null)
+                {
+                    Console.WriteLine("[LOG] User not found!");
                     return false;
                 }
                 user.Passwordhash = HashPassword(password);
                 bool updateSuccess = await _userRepository.UpdateAsync(user);
+                Console.WriteLine($"[LOG] Password update success: {updateSuccess}");
                 return updateSuccess;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine("lỗi" + ex.Message);
                 Console.WriteLine("Token validation error: " + ex.ToString());
 
@@ -166,7 +178,7 @@ namespace BLL.Services
 
         private string HashPassword(string password)
         {
-            using (var sha256 = SHA256.Create()) 
+            using (var sha256 = SHA256.Create())
             {
                 var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
                 return Convert.ToBase64String(bytes);
@@ -197,7 +209,7 @@ namespace BLL.Services
 
         public Task<bool> CheckPasswordAsync(User user, string password)
         {
-           var  inputHash = HashPassword(password);
+            var inputHash = HashPassword(password);
             bool isValud = user.Passwordhash == inputHash;
             return Task.FromResult(isValud);
         }

@@ -7,6 +7,7 @@ const ResetPassword: React.FC = () => {
     const navigate = useNavigate();
     const token = searchParams.get('token');
     const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -14,6 +15,11 @@ const ResetPassword: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         setMessage('');
+        if (newPassword !== confirmPassword) {
+            setMessage('Mật khẩu xác nhận không khớp!');
+            setLoading(false);
+            return;
+        }
         try {
             await authService.resetPassword(token || '', newPassword);
             setMessage('Đặt lại mật khẩu thành công!');
@@ -34,6 +40,14 @@ const ResetPassword: React.FC = () => {
                     placeholder="Mật khẩu mới"
                     value={newPassword}
                     onChange={e => setNewPassword(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 border rounded mb-4"
+                />
+                <input
+                    type="password"
+                    placeholder="Xác nhận mật khẩu"
+                    value={confirmPassword}
+                    onChange={e => setConfirmPassword(e.target.value)}
                     required
                     className="w-full px-3 py-2 border rounded mb-4"
                 />

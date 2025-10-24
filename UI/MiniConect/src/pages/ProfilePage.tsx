@@ -7,7 +7,8 @@ import { useSignalR } from '../hooks/useSignalR';
 
 import EditProfile from '../components/user/EditProfile';
 import ChangePassword from '../components/user/ChangePassword';
-import { fetchUser, fetchMyPosts } from '../services/userApi';
+import { fetchUser } from '../services/userApi';
+import { fetchMyPosts } from '../services/postApi';
 
 
 const HUB_URL = (import.meta.env.VITE_API_BASE_URL || '') + '/hubs/userHub';
@@ -17,6 +18,29 @@ import type { Post } from '../types/post.types';
 import PostItem from '../components/social/PostItem';
 
 const ProfilePage: React.FC = () => {
+    // Like/Unlike logic cho bài viết cá nhân
+    const handleLike = async (postId: string) => {
+        setMyPosts(prev => prev.map(post =>
+            post.id === postId
+                ? {
+                    ...post,
+                    isLiked: !post.isLiked,
+                    likeCount: post.isLiked ? Math.max(0, post.likeCount - 1) : post.likeCount + 1
+                }
+                : post
+        ));
+        try {
+            const { likePost, unlikePost } = await import('../services/postApi');
+            const post = myPosts.find(p => p.id === postId);
+            if (post?.isLiked) {
+                await unlikePost(postId);
+            } else {
+                await likePost(postId);
+            }
+        } catch (err) {
+            // Có thể show thông báo lỗi
+        }
+    };
     const { user, setUser } = useUserStore();
     const [showEdit, setShowEdit] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
@@ -192,7 +216,7 @@ const ProfilePage: React.FC = () => {
                             <PostItem
                                 key={post.id}
                                 post={post}
-                                onLike={() => { }}
+                                onLike={() => handleLike(post.id)}
                                 onComment={() => { }}
                                 onShare={() => { }}
                                 isOwner={user && post.authorId === user.id}
