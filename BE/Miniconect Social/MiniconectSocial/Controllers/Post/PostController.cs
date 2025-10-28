@@ -60,7 +60,7 @@ namespace MiniconectSocial.Controllers.Post
                 Authorid = post.Authorid,
                 Authorname = post.Author.Username,
                 AuthorAvatar = post.Author!.Profilepictureurl,
-                CommentCount = post.Users?.Count ?? 0,
+                CommentCount = post.Comments?.Count ?? 0,
                 likeCount = post.Users?.Count ?? 0
             };
             return Ok(result);

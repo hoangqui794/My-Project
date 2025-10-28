@@ -1,5 +1,53 @@
 [
   {
+    "ContainingType": "MiniconectSocial.Controllers.Chat.ChatController",
+    "Method": "MarkAsRead",
+    "RelativePath": "api/v1/chat/read/{messageId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "messageId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Chat.ChatController",
+    "Method": "SendMessage",
+    "RelativePath": "api/v1/chat/send",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MiniconectSocial.DTos.chat.SendMessageDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MiniconectSocial.Controllers.Chat.ChatController",
+    "Method": "GetMessageThread",
+    "RelativePath": "api/v1/chat/thread",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MiniconectSocial.Controllers.Auth.AuthController",
     "Method": "ForgotPassword",
     "RelativePath": "api/v1/forgot-password",
