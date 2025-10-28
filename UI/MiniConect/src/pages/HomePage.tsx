@@ -7,16 +7,19 @@ import CreatePost from '../components/social/CreatePost';
 import PostItem from '../components/social/PostItem';
 import type { Post } from '../types';
 import { fetchPosts } from '../services/postApi';
+import CommentItem from '../components/social/CommentItem';
 
 const HomePage: React.FC = () => {
-    // Log trạng thái kết nối SignalR
-    import('../utils/signalR').then(({ getSignalRConnection }) => {
-        const conn = getSignalRConnection();
-        console.log('SignalR connection state:', conn?.state);
-        if (!conn || conn.state !== 'Connected') {
-            console.error('SignalR connection is not established! Current state:', conn?.state);
-        }
-    });
+    // Log trạng thái kết nối SignalR chỉ khi mount (đã đúng, không cần log ở nơi khác)
+    useEffect(() => {
+        import('../utils/signalR').then(({ getSignalRConnection }) => {
+            const conn = getSignalRConnection();
+            console.log('SignalR connection state:', conn?.state);
+            if (!conn || conn.state !== 'Connected') {
+                console.error('SignalR connection is not established! Current state:', conn?.state);
+            }
+        });
+    }, []);
     // State cho input bình luận popup
     const [commentInput, setCommentInput] = useState('');
     const [sendingComment, setSendingComment] = useState(false);
@@ -97,6 +100,7 @@ const HomePage: React.FC = () => {
             }
         },
         NewComment: (payload: any) => {
+            // Log callback chỉ một lần khi nhận sự kiện
             console.log('SignalR NewComment event received:', payload, 'Current user:', user?.id);
             // Tăng số lượng comment trên feed
             setPosts(prev => prev.map(post =>
@@ -104,11 +108,10 @@ const HomePage: React.FC = () => {
                     ? { ...post, commentCount: post.commentCount + 1 }
                     : post
             ));
-            // Nếu đang mở popup chi tiết đúng bài viết thì thêm bình luận mới vào
+            // Nếu đang mở popup chi tiết đúng bài viết thì thêm bình luận mới vào, kiểm tra trùng id
             setSelectedPost(post => {
                 if (post && Number(post.id) === payload.postId) {
                     setComments(prev => {
-                        // Nếu comment đã tồn tại thì không thêm nữa (so sánh đúng key Id)
                         if (prev.some(c => String(c.id) === String(payload.id))) return prev;
                         return [
                             {
@@ -129,11 +132,20 @@ const HomePage: React.FC = () => {
             });
         },
         CommentDeleted: (payload: { postId: number }) => {
+            // Giảm số lượng comment trên bài viết
             setPosts(prev => prev.map(post =>
                 Number(post.id) === payload.postId
                     ? { ...post, commentCount: Math.max(0, post.commentCount - 1) }
                     : post
             ));
+            // Nếu đang mở popup chi tiết đúng bài viết thì xóa comment khỏi danh sách
+            setSelectedPost(post => {
+                if (post && Number(post.id) === payload.postId) {
+                    setComments(prev => prev.filter(c => String(c.id) !== String(payload.commentId)));
+                    return { ...post, commentCount: Math.max(0, post.commentCount - 1) };
+                }
+                return post;
+            });
         },
     });
 
@@ -192,7 +204,18 @@ const HomePage: React.FC = () => {
 
     // Hàm gửi bình luận mới (giữ lại logic cũ nếu cần)
     const handleComment = async (postId: string, content: string) => {
-        // ...existing code...
+        setSendingComment(true);
+        try {
+            const { createComment } = await import('../services/postApi');
+            const newComment = await createComment({ postId, content });
+            // Thêm comment mới vào danh sách nếu đang xem popup chi tiết bài viết
+            setComments(prev => [newComment, ...prev]);
+        } catch {
+            // Có thể show thông báo lỗi
+        } finally {
+            setSendingComment(false);
+            setCommentInput('');
+        }
     };
 
     const handleShare = async (postId: string) => {
@@ -324,26 +347,25 @@ const HomePage: React.FC = () => {
                                     ) : (
                                         <ul className="space-y-2">
                                             {comments.map(comment => (
-                                                <li key={comment.id} className="border-b pb-2 flex gap-2 items-start">
-                                                    {comment.authorAvatar ? (
-                                                        <img
-                                                            src={`data:image/png;base64,${comment.authorAvatar}`}
-                                                            alt={comment.authorName || 'avatar'}
-                                                            className="w-8 h-8 rounded-full mt-1"
-                                                        />
-                                                    ) : (
-                                                        <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mt-1">
-                                                            <span className="text-gray-600 font-medium text-base">
-                                                                {comment.authorName?.[0]?.toUpperCase() || 'U'}
-                                                            </span>
-                                                        </div>
-                                                    )}
-                                                    <div>
-                                                        <div className="font-semibold">{comment.authorName || 'Ẩn danh'}</div>
-                                                        <div>{comment.content}</div>
-                                                        <div className="text-xs text-gray-400">{new Date(comment.createdat).toLocaleString()}</div>
-                                                    </div>
-                                                </li>
+                                                <CommentItem
+                                                    key={comment.id}
+                                                    comment={{
+                                                        ...comment,
+                                                        author: {
+                                                            id: comment.authorId,
+                                                            username: comment.authorName,
+                                                            avatar: comment.authorAvatar ? `data:image/png;base64,${comment.authorAvatar}` : undefined,
+                                                        },
+                                                        createdAt: comment.createdAt || comment.createdat,
+                                                    }}
+                                                    postId={selectedPost.id}
+                                                    isOwner={!!user && comment.authorId === user.id}
+                                                    onDeleted={(commentId) => {
+                                                        setComments(prev => prev.filter(c => c.id !== commentId));
+                                                        setSelectedPost(post => post ? { ...post, commentCount: Math.max(0, post.commentCount - 1) } : post);
+                                                        setPosts(prev => prev.map(post => post.id === selectedPost.id ? { ...post, commentCount: Math.max(0, post.commentCount - 1) } : post));
+                                                    }}
+                                                />
                                             ))}
                                         </ul>
                                     )}
@@ -353,18 +375,8 @@ const HomePage: React.FC = () => {
                                     className="flex items-center gap-2 mt-4"
                                     onSubmit={async (e) => {
                                         e.preventDefault();
-                                        if (!commentInput.trim()) return;
-                                        setSendingComment(true);
-                                        try {
-                                            const { createComment } = await import('../services/postApi');
-                                            await createComment({ postId: selectedPost.id, content: commentInput });
-                                            setCommentInput('');
-                                            // Không tự thêm vào danh sách comment, chỉ cập nhật khi nhận SignalR
-                                        } catch {
-                                            // Có thể show thông báo lỗi
-                                        } finally {
-                                            setSendingComment(false);
-                                        }
+                                        if (!commentInput.trim() || !selectedPost) return;
+                                        await handleComment(selectedPost.id, commentInput);
                                     }}
                                 >
                                     <img src={user?.avatar || 'https://ui-avatars.com/api/?name=User'} alt="avatar" className="w-8 h-8 rounded-full" />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { Post } from '../../types';
+import { deletePost } from '../../services/postApi';
 
 interface PostItemProps {
     post: Post;
@@ -11,7 +12,6 @@ interface PostItemProps {
     onCommentIconClick?: () => void;
 }
 
-import { deletePost } from '../../services/postApi';
 const PostItem: React.FC<PostItemProps> = ({ post, onLike, onComment, onShare, onDelete, isOwner, onCommentIconClick }) => {
     const [showComments, setShowComments] = useState(false);
     const [commentText, setCommentText] = useState('');
