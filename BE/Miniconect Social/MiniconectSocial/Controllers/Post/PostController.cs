@@ -1,7 +1,4 @@
-﻿using MiniconectSocial.DTos.post;
-using System.Windows.Markup;
-
-namespace MiniconectSocial.Controllers.Post
+﻿namespace MiniconectSocial.Controllers.Post
 {
     [Route("api/v1/posts")]
     [ApiController]

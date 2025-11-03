@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "D:\\DOC\\My Project\\BE\\Miniconect Social\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\controllers\\post\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\controllers\\post\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\controllers\\chat\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\controllers\\chat\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\data\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\data\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\hubs\\chathubs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,14 +47,6 @@
       "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\irepository\\ichatmessagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|d:\\doc\\my project\\be\\miniconect social\\miniconectsocial\\controllers\\post\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29D47821-9082-4FA3-B0B1-B77A98CF708D}|MiniconectSocial\\MiniconectSocial.csproj|solutionrelative:miniconectsocial\\controllers\\post\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|d:\\doc\\my project\\be\\miniconect social\\dal\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EB9C1E1-2FC6-4031-B046-FE1FA609620A}|DAL\\DAL.csproj|solutionrelative:dal\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5875EBB1-01BE-2D17-3613-D0BAD09CBB40}|BLL\\BLL.csproj|d:\\doc\\my project\\be\\miniconect social\\bll\\services\\postservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5875EBB1-01BE-2D17-3613-D0BAD09CBB40}|BLL\\BLL.csproj|solutionrelative:bll\\services\\postservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -58,50 +62,62 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GlobalUsings.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\GlobalUsings.cs",
-              "RelativeDocumentMoniker": "MiniconectSocial\\GlobalUsings.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\GlobalUsings.cs",
-              "RelativeToolTip": "MiniconectSocial\\GlobalUsings.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAhAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\UserRepository.cs",
+              "RelativeDocumentMoniker": "DAL\\Repository\\UserRepository.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\UserRepository.cs",
+              "RelativeToolTip": "DAL\\Repository\\UserRepository.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAIwC0AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T08:57:02.278Z",
+              "WhenOpened": "2025-11-03T03:14:12.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Post.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Data\\Post.cs",
+              "RelativeDocumentMoniker": "DAL\\Data\\Post.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Data\\Post.cs",
+              "RelativeToolTip": "DAL\\Data\\Post.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T13:28:04.714Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ChatController.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Chat\\ChatController.cs",
-              "RelativeDocumentMoniker": "MiniconectSocial\\Controllers\\Chat\\ChatController.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Chat\\ChatController.cs",
-              "RelativeToolTip": "MiniconectSocial\\Controllers\\Chat\\ChatController.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAAADoAAAAYAAAAAAAAAA==",
+              "Title": "PostRepository.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\PostRepository.cs",
+              "RelativeDocumentMoniker": "DAL\\Repository\\PostRepository.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\PostRepository.cs",
+              "RelativeToolTip": "DAL\\Repository\\PostRepository.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAcwGMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T08:44:41.007Z",
+              "WhenOpened": "2025-10-24T09:29:05.328Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "ChatHubs.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Hubs\\ChatHubs.cs",
               "RelativeDocumentMoniker": "MiniconectSocial\\Hubs\\ChatHubs.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Hubs\\ChatHubs.cs*",
-              "RelativeToolTip": "MiniconectSocial\\Hubs\\ChatHubs.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAABAAAAAAAAAA==",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Hubs\\ChatHubs.cs",
+              "RelativeToolTip": "MiniconectSocial\\Hubs\\ChatHubs.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAgwCUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T08:01:03.225Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-28T08:01:03.225Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "ChatMessageService.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\Services\\ChatMessageService.cs",
               "RelativeDocumentMoniker": "BLL\\Services\\ChatMessageService.cs",
@@ -109,12 +125,37 @@
               "RelativeToolTip": "BLL\\Services\\ChatMessageService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T03:44:23.943Z",
+              "WhenOpened": "2025-10-28T03:44:23.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PostController.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Post\\PostController.cs",
+              "RelativeDocumentMoniker": "MiniconectSocial\\Controllers\\Post\\PostController.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Post\\PostController.cs",
+              "RelativeToolTip": "MiniconectSocial\\Controllers\\Post\\PostController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T09:29:23.495Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Chat\\ChatController.cs",
+              "RelativeDocumentMoniker": "MiniconectSocial\\Controllers\\Chat\\ChatController.cs",
+              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Chat\\ChatController.cs",
+              "RelativeToolTip": "MiniconectSocial\\Controllers\\Chat\\ChatController.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAAAD0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T08:44:41.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "IChatMessageService.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\IService\\IChatMessageService.cs",
               "RelativeDocumentMoniker": "BLL\\IService\\IChatMessageService.cs",
@@ -122,12 +163,11 @@
               "RelativeToolTip": "BLL\\IService\\IChatMessageService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T03:43:54.007Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-28T03:43:54.007Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Chatmessage.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Data\\Chatmessage.cs",
               "RelativeDocumentMoniker": "DAL\\Data\\Chatmessage.cs",
@@ -135,12 +175,11 @@
               "RelativeToolTip": "DAL\\Data\\Chatmessage.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T03:24:08.971Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-28T03:24:08.971Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "ChatMessageRepository.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\ChatMessageRepository.cs",
               "RelativeDocumentMoniker": "DAL\\Repository\\ChatMessageRepository.cs",
@@ -148,12 +187,11 @@
               "RelativeToolTip": "DAL\\Repository\\ChatMessageRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T03:20:15.183Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-28T03:20:15.183Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "IChatMessageRepository.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\IRepository\\IChatMessageRepository.cs",
               "RelativeDocumentMoniker": "DAL\\IRepository\\IChatMessageRepository.cs",
@@ -161,12 +199,11 @@
               "RelativeToolTip": "DAL\\IRepository\\IChatMessageRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T03:18:52.487Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-28T03:18:52.487Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Program.cs",
               "RelativeDocumentMoniker": "MiniconectSocial\\Program.cs",
@@ -178,20 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Post\\PostController.cs",
-              "RelativeDocumentMoniker": "MiniconectSocial\\Controllers\\Post\\PostController.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\MiniconectSocial\\Controllers\\Post\\PostController.cs",
-              "RelativeToolTip": "MiniconectSocial\\Controllers\\Post\\PostController.cs",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAEwLkAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T09:29:23.495Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "PostService.cs",
               "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\BLL\\Services\\PostService.cs",
               "RelativeDocumentMoniker": "BLL\\Services\\PostService.cs",
@@ -200,18 +224,6 @@
               "ViewState": "AgIAACQAAAAAAAAAAAAvwDMAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-24T09:29:16.947Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "PostRepository.cs",
-              "DocumentMoniker": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\PostRepository.cs",
-              "RelativeDocumentMoniker": "DAL\\Repository\\PostRepository.cs",
-              "ToolTip": "D:\\DOC\\My Project\\BE\\Miniconect Social\\DAL\\Repository\\PostRepository.cs",
-              "RelativeToolTip": "DAL\\Repository\\PostRepository.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAADgvycAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T09:29:05.328Z"
             }
           ]
         }

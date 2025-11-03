@@ -66,11 +66,16 @@
 
         public async Task<bool> LikePostAsync(int postId, string userId)
         {
-            var post = await _context.Posts.Include(p => p.Users).FirstOrDefaultAsync(p => p.Id == postId);
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
             var user = await _context.Users.FindAsync(userId);
-            if (post == null || user == null) return false;
-            if (post.Users.Any(u => u.Id == userId)) return false;// Already liked
 
+            if (post == null || user == null) return false;
+            bool isLiked = await _context.Posts
+                .Where(p => p.Id == postId)
+               .SelectMany(p => p.Users)
+               .AnyAsync(u => u.Id == userId);
+
+            if (isLiked) return false; // Đã like rồi
             post.Users.Add(user);
             await _context.SaveChangesAsync();
             return true;
@@ -82,6 +87,12 @@
             var user = await _context.Users.FindAsync(userId);
             if (post == null || user == null) return false;
             if (!post.Users.Any(u => u.Id == userId)) return false;// Already liked
+
+            bool isLiked = await _context.Posts
+                  .Where(p => p.Id == postId)
+                 .SelectMany(p => p.Users)
+                 .AnyAsync(u => u.Id == userId);
+            if (!isLiked) return false;
 
             post.Users.Remove(user);
             await _context.SaveChangesAsync();

@@ -33,7 +33,7 @@
 
         public async Task<User> GetByUsernameAsync(string username)
         {
-            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username.ToLower().Contains(username.ToLower()));
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => EF.Functions.ILike(u.Username, $"{username}"));
         }
 
         public async Task<int> SaveChangesAsync()
@@ -47,9 +47,8 @@
             {
                 return new List<User>();
             }
-            var loweredQuery = query.ToLower();
             return await _context.Users.AsNoTracking()
-                .Where(u => u.Username.ToLower().Contains(loweredQuery) || u.Email.ToLower().Contains(loweredQuery))
+                .Where(u => EF.Functions.ILike(u.Username, $"{query}") || EF.Functions.ILike(u.Email, $"{query}"))
                 .ToListAsync();
         }
 
@@ -77,10 +76,21 @@
 
         public async Task<bool> FollowAsync(string userId, string targetUserId)
         {
-            var user = await _context.Users.Include(u => u.Followings).FirstOrDefaultAsync(u => u.Id == userId);
+            if (userId == targetUserId)
+            {
+                return false; // Không thể follow chính mình
+            }
+            bool isFollowing = await _context.Users
+               .Where(u => u.Id == userId)
+               .SelectMany(u => u.Followings)
+               .AnyAsync(f => f.Id == targetUserId);
+            if (isFollowing)
+            {
+                return false; // Đã follow rồi
+            }
+            var user = await _context.Users.Include(u => u.Followers).FirstOrDefaultAsync(u => u.Id == userId);
             var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == targetUserId);
             if (user == null || targetUser == null) return false;
-            if (user.Followings.Contains(targetUser)) return false; // Đã follow rồi
             user.Followings.Add(targetUser);
             await _context.SaveChangesAsync();
             return true;
@@ -88,12 +98,18 @@
 
         public async Task<bool> UnfollowAsync(string userId, string targetUserId)
         {
+            bool isFollowing = await _context.Users
+                .Where(u => u.Id == userId)
+                .SelectMany(u => u.Followings)
+                .AnyAsync(f => f.Id == targetUserId);
+            if (!isFollowing) return false; // Chưa follow nên không thể unfollow
             var user = await _context.Users.Include(u => u.Followings).FirstOrDefaultAsync(u => u.Id == userId);
             var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == targetUserId);
             if (user == null || targetUser == null) return false;
-            if (!user.Followings.Contains(targetUser)) return false; // Chưa follow
+
             user.Followings.Remove(targetUser);
             await _context.SaveChangesAsync();
+
             return true;
         }
     }
