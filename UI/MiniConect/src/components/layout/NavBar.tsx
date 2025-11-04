@@ -31,7 +31,7 @@ const NavBar: React.FC = () => {
                     <div className="hidden md:flex gap-1 lg:gap-3">
                         <Link to="/" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/')}`}>Trang chủ</Link>
                         <Link to="/messages" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/messages')}`}>Tin nhắn</Link>
-                        <Link to="/search" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/search')}`}>Tìm kiếm</Link>
+                        {/* <Link to="/search" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/search')}`}>Tìm kiếm</Link> */}
                         <Link to="/notifications" className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${isActive('/notifications')}`}>Thông báo</Link>
                     </div>
 
@@ -90,7 +90,7 @@ const NavBar: React.FC = () => {
                             <Link to="/" className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${isActive('/')}`} onClick={() => setMobileOpen(false)}>Trang chủ</Link>
                             <Link to="/blog" className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${isActive('/blog')}`} onClick={() => setMobileOpen(false)}>Blog</Link>
                             <Link to="/messages" className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${isActive('/messages')}`} onClick={() => setMobileOpen(false)}>Tin nhắn</Link>
-                            <Link to="/search" className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${isActive('/search')}`} onClick={() => setMobileOpen(false)}>Tìm kiếm</Link>
+                            {/* <Link to="/search" className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${isActive('/search')}`} onClick={() => setMobileOpen(false)}>Tìm kiếm</Link> */}
                             <Link to="/notifications" className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${isActive('/notifications')}`} onClick={() => setMobileOpen(false)}>Thông báo</Link>
                             {user && user.username ? (
                                 <>
